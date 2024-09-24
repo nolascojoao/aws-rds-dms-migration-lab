@@ -141,10 +141,10 @@ FLUSH PRIVILEGES;
 
 ## Step 3: Create RDS MySQL Instance
 #### 3.1. Create a Security Group for RDS
-  - Create a security group that allows MySQL traffic to the RDS instance.
-  - Replace <sg-name> with your security group name.
-  - Replace SG-RDS with your security group description.
-  - Replace <vpc-id> with your VPC ID.
+Create a security group that allows MySQL traffic to the RDS instance.
+  - Replace `<sg-name>` with your security group name.
+  - Replace `SG-RDS` with your security group description.
+  - Replace `<vpc-id>` with your VPC ID.
 ```bash
 aws ec2 create-security-group \
   --group-name <sg-name> \

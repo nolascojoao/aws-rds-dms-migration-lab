@@ -112,7 +112,7 @@ SSH into the EC2 instance to configure MariaDB.
 ssh -i YourKeyPairName.pem ec2-user@<Public-IP-of-instance>
 ```
 
-#### 2.5 Install MariaDB
+#### 2.5. Install MariaDB
 Install and configure MariaDB on the EC2 instance.
 ```bash
 sudo yum update -y
@@ -270,6 +270,7 @@ SHOW TABLES;
 ---
 
 ## Step 7: Clean Up Resources
+#### 7.1. Remove the resources
 Once the lab is completed remove the resources to avoid unnecessary charges.
   - Replace `<instance-id>`, `<vpc-id>`, `<replication-instance-arn>` and `<db-instance-identifier>` with your values.
 ```bash

@@ -177,13 +177,33 @@ aws rds create-db-instance \
 #### 4.1. Create an IAM Role for DMS
 Create an IAM role that allows DMS to access your VPC resources.
 ```bash
-aws iam create-role --role-name dms-vpc-role --assume-role-policy-document file://policy.json
-aws iam attach-role-policy \
-  --role-name dms-vpc-role \
-  --policy-arn arn:aws:iam::aws:policy/service-role/AmazonDMSVPCManagementRole
+aws iam create-role --role-name dms-vpc-role --assume-role-policy-document file://dms-trust-policy.json
+```
+#### Content of `dms-trust-policy.json`
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "dms.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
 ```
 
-#### 4.2. Create the Source Endpoint (MariaDB)
+#### 4.2. Attach Policies to the Role
+Attach the necessary AWS DMS policies to the role.
+```bash
+aws iam attach-role-policy --role-name dms-role --policy-arn arn:aws:iam::aws:policy/service-role/AmazonDMSVPCManagementRole
+aws iam attach-role-policy --role-name dms-role --policy-arn arn:aws:iam::aws:policy/service-role/AmazonDMSCloudWatchLogsRole
+aws iam attach-role-policy --role-name dms-role --policy-arn arn:aws:iam::aws:policy/service-role/AWSMigrationHubDMSAccess
+```
+
+#### 4.3. Create the Source Endpoint (MariaDB)
 Define the source database (MariaDB running on EC2).
   - Replace `user` for your MariaDB username.
   - Replace `password` for your MariaDB password.
@@ -200,7 +220,7 @@ aws dms create-endpoint \
   --database-name exampledb
 ```
 
-#### 4.3. Create the Target Endpoint (RDS MariaDB)
+#### 4.4. Create the Target Endpoint (RDS MariaDB)
 Define the target database (RDS MariaDB).
   - Replace `admin` for your RDS username.
   - Replace `adminpassword` for your RDS password.
@@ -217,7 +237,7 @@ aws dms create-endpoint \
   --database-name exampledb
 ```
 
-#### 4.4. Create a DMS Replication Instance
+#### 4.5. Create a DMS Replication Instance
 Create a replication instance for DMS, which will handle the data migration.
   - Replace `<security-group-id>` for your security group ID.
 ```bash
@@ -228,7 +248,7 @@ aws dms create-replication-instance \
   --vpc-security-group-ids <security-group-id>
 ```
 
-#### 4.5. Create and Start the Migration Task
+#### 4.6. Create and Start the Migration Task
 Create and start the migration task that transfers data from MariaDB to RDS MariaDB.
 ```bash
 aws dms create-replication-task \

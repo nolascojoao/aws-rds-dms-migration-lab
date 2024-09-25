@@ -4,7 +4,6 @@
 ## Overview
 
 - Migrate a MariaDB database from an EC2 instance to a Single-AZ RDS MariaDB with AWS DMS.
-- The architecture is Single-AZ.
 - Migration is monitored via CloudWatch.
 
 ---

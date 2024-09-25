@@ -177,7 +177,7 @@ aws rds create-db-instance \
 #### 4.1. Create an IAM Role for DMS
 Create an IAM role that allows DMS to access your VPC resources.
 ```bash
-aws iam create-role --role-name dms-vpc-role --assume-role-policy-document file://dms-trust-policy.json
+aws iam create-role --role-name dms-role --assume-role-policy-document file://dms-trust-policy.json
 ```
 #### Content of `dms-trust-policy.json`
 ```json

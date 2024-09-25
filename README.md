@@ -3,7 +3,9 @@
 
 ## Overview
 
-This lab demonstrates the process of migrating a MariaDB database running on an EC2 instance (simulating an on-premise environment) to an RDS MariaDB instance using AWS DMS and monitoring the migration with CloudWatch.
+- Migrate a MariaDB database from an EC2 instance to a Single-AZ RDS MariaDB with AWS DMS.
+- The architecture is Single-AZ.
+- Migration is monitored via CloudWatch.
 
 ---
 ⚠️ Attention:

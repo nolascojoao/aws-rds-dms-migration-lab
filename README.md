@@ -3,7 +3,7 @@
 
 ## Overview
 
-This lab demonstrates the process of migrating a MariaDB database running on an EC2 instance (simulating an on-premise environment) to an RDS MySQL instance using AWS DMS and monitoring the migration with CloudWatch.
+This lab demonstrates the process of migrating a MariaDB database running on an EC2 instance (simulating an on-premise environment) to an RDS MariaDB instance using AWS DMS and monitoring the migration with CloudWatch.
 
 ---
 ⚠️ Attention:
@@ -139,9 +139,9 @@ FLUSH PRIVILEGES;
 
 ---
 
-## Step 3: Create RDS MySQL Instance
+## Step 3: Create RDS MariaDB Instance
 #### 3.1. Create a Security Group for RDS
-Create a security group that allows MySQL traffic to the RDS instance.
+Create a security group that allows MariaDB traffic to the RDS instance.
   - Replace `<sg-name>` with your security group name.
   - Replace `SG-RDS` with your security group description.
   - Replace `<vpc-id>` with your VPC ID.
@@ -152,8 +152,8 @@ aws ec2 create-security-group \
   --vpc-id <vpc-id>
 ```
 
-#### 3.2. Launch RDS MySQL Instance
-Create an RDS MySQL instance, which will serve as the destination for the migration.
+#### 3.2. Launch RDS MariaDB Instance
+Create an RDS MariaDB instance which will serve as the destination for the migration.
   - Replace `my-rds-instance` for your RDS instance identifier.
   - Replace `admin` for your master username.
   - Replace `adminpassword` for your master password.
@@ -161,7 +161,7 @@ Create an RDS MySQL instance, which will serve as the destination for the migrat
 aws rds create-db-instance \
   --db-instance-identifier my-rds-instance \
   --db-instance-class db.t2.micro \
-  --engine mysql \
+  --engine mariadb \
   --master-username admin \
   --master-user-password adminpassword \
   --allocated-storage 20 \
@@ -169,7 +169,7 @@ aws rds create-db-instance \
 ```
 
 #### 3.3. Note the RDS Endpoint
-- After the RDS instance is created, note down the RDS Endpoint for use in the migration task.
+- After the RDS instance is created note down the RDS Endpoint for use in the migration task.
 
 ---
 
@@ -200,8 +200,8 @@ aws dms create-endpoint \
   --database-name exampledb
 ```
 
-#### 4.3. Create the Target Endpoint (RDS MySQL)
-Define the target database (RDS MySQL).
+#### 4.3. Create the Target Endpoint (RDS MariaDB)
+Define the target database (RDS MariaDB).
   - Replace `admin` for your RDS username.
   - Replace `adminpassword` for your RDS password.
   - Replace `<RDS-Endpoint>` for your RDS endpoint.
@@ -209,7 +209,7 @@ Define the target database (RDS MySQL).
 aws dms create-endpoint \
   --endpoint-identifier rds-endpoint \
   --endpoint-type target \
-  --engine-name mysql \
+  --engine-name mariadb \
   --username admin \
   --password adminpassword \
   --server-name <RDS-Endpoint> \
@@ -229,7 +229,7 @@ aws dms create-replication-instance \
 ```
 
 #### 4.5. Create and Start the Migration Task
-Create and start the migration task that transfers data from MariaDB to RDS MySQL.
+Create and start the migration task that transfers data from MariaDB to RDS MariaDB.
 ```bash
 aws dms create-replication-task \
   --replication-task-identifier migration-mariadb-to-rds \
@@ -258,7 +258,7 @@ aws logs get-log-events \
 
 ## Step 6: Verify the Migrated Database
 #### 6.1. Connect to RDS and Verify Data
-Connect to the RDS MySQL instance and verify that the data was successfully migrated.
+Connect to the RDS MariaDB instance and verify that the data was successfully migrated.
   - Replace `<RDS-Endpoint>` for your RDS endpoint.
 ```bash
 mysql -h <RDS-Endpoint> -u admin -p
@@ -272,7 +272,7 @@ SHOW TABLES;
 ## Step 7: Clean Up Resources
 #### 7.1. Remove the resources
 Once the lab is completed remove the resources to avoid unnecessary charges.
-  - Replace `<instance-id>`, `<vpc-id>`, `<replication-instance-arn>` and `<db-instance-identifier>` with your values.
+  - Replace `<instance-id>`, `<db-instance-identifier>`, `<vpc-id>` and `<replication-instance-arn>` with your values.
 ```bash
 aws ec2 terminate-instances --instance-ids <instance-id>
 

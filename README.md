@@ -168,10 +168,10 @@ source Chinook_MySql.sql
 To confirm that the sample database has been correctly imported.
 ```bash
 # Check if the tables were imported correctly
-mysql -u root -p -e "SHOW DATABASES;"
+sudo mysql -u root -p -e "SHOW DATABASES;"
 
 # Once you know the database name you can check its tables
-mysql -u root -p -e "USE Chinook; SHOW TABLES;"
+sudo mysql -u root -p -e "USE Chinook; SHOW TABLES;"
 ```
 
 ---

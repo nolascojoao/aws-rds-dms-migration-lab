@@ -248,7 +248,7 @@ sudo mysql -u root -p -e "USE Chinook; SHOW TABLES;"
 
 ---
 
-# *Part II: Database Migration*
+# *Part II: Database Migration (IN PROGRESS)*
 
 ---
 

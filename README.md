@@ -96,7 +96,8 @@ aws ec2 create-security-group \
 
 #### 2.3. Add Rules to Security Group
 Allow inbound SSH (port 22) and MariaDB (port 3306) traffic.
-  - Replace `<security-group-id>` for your security group ID.
+  - Replace `<security-group-id>` for your RDS Security group ID.
+  - Replace `<sg-ec2-id>`for your EC2 Security Group ID.
 ```bash
 aws ec2 authorize-security-group-ingress \
   --group-id <security-group-id> \
@@ -105,10 +106,10 @@ aws ec2 authorize-security-group-ingress \
   --cidr 0.0.0.0/0
 
 aws ec2 authorize-security-group-ingress \
-  --group-id <security-group-id> \
+  --group-id <sg-rds-id> \
   --protocol tcp \
   --port 3306 \
-  --cidr 0.0.0.0/0
+  --source-group <sg-ec2-id>
 ```
 
 #### 2.4. Launch EC2 Instance

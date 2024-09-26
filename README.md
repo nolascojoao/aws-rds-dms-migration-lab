@@ -177,15 +177,15 @@ aws ec2 describe-instances \
   --output text
 ```
 
-<div align="center">
-  <img src="screenshot/2.5.PNG" width=""/>
-</div>
-
 SSH into the EC2 instance to configure MariaDB.
   - Replace `<Public-IP-of-instance>` for the public IP of your EC2 instance.
 ```bash
 ssh -i YourKeyPairName.pem ec2-user@<Public-IP-of-instance>
 ```
+
+<div align="center">
+  <img src="screenshot/2.5.PNG" width=""/>
+</div>
 
 #### 2.6. Install MariaDB
 Install and configure MariaDB on the EC2 instance.

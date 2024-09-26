@@ -28,7 +28,7 @@ aws ec2 create-vpc --cidr-block <cidr-block>
 #### 1.2. Create Subnets
 Create subnets for the EC2 instance and RDS. One public subnet for EC2 and two private subnets for RDS, one in a different AZ.
   - Replace `<vpc-id>` with the ID of the VPC created in the previous step.
-  - Replace `<cidr-block>` with the desired CIDR block for each subnet (e.g., 10.0.1.0/24 for EC2 and 10.0.2.0/24 for RDS).
+  - Replace `<cidr-block>` with the desired CIDR block for each subnet (e.g., 10.0.1.0/24 for EC2 and 10.0.2.0/24 and 10.0.3.0/24 for RDS).
   - Replace `<az-name>`with the name of the availability zone where you want to create your resources (e.g., us-east-1a or us-east-1b)
   - Replace `<az-name-different>` with a different availability zone for the second private subnet for RDS.
 

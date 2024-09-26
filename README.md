@@ -61,7 +61,15 @@ aws ec2 associate-route-table --subnet-id <public-subnet-id> --route-table-id <r
 ---
 
 ## Step 2: Configure the EC2 Instance Simulating On-Premise
-#### 2.1. Create a Security Group
+#### 2.1. Create a Key Pair
+Before launching the EC2 instance create a key pair that you will use to access the instance.
+  - Replace YourKeyPairName with the desired name for your key pair.
+```bash
+aws ec2 create-key-pair --key-name YourKeyPairName --query 'KeyMaterial' --output text > YourKeyPairName.pem
+chmod 400 YourKeyPairName.pem
+```
+
+#### 2.2. Create a Security Group
 Create a security group that allows traffic for MariaDB and SSH access.
   - Replace `<sg-name>` for your security group name.
   - Replace `SG-EC2` for your security group description.
@@ -73,7 +81,7 @@ aws ec2 create-security-group \
   --vpc-id <vpc-id>
 ```
 
-#### 2.2. Add Rules to Security Group
+#### 2.3. Add Rules to Security Group
 Allow inbound SSH (port 22) and MariaDB (port 3306) traffic.
   - Replace `<security-group-id>` for your security group ID.
 ```bash
@@ -90,7 +98,7 @@ aws ec2 authorize-security-group-ingress \
   --cidr 0.0.0.0/0
 ```
 
-#### 2.3. Launch EC2 Instance
+#### 2.4. Launch EC2 Instance
 Simulate an on-premise environment running MariaDB.
   - Replace `<ami-id>` for your AMI ID (e.g., ami-0ebfd941bbafe70c6). [Find an AMI](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/finding-an-ami.html)
   - Replace `<instance-type>` with your desired instance type (e.g., t2.micro).
@@ -106,14 +114,14 @@ aws ec2 run-instances \
   --subnet-id <subnet-id> 
 ```
 
-#### 2.4. Connect to EC2 via SSH
+#### 2.5. Connect to EC2 via SSH
 SSH into the EC2 instance to configure MariaDB.
   - Replace `<Public-IP-of-instance>` for the public IP of your EC2 instance.
 ```bash
 ssh -i YourKeyPairName.pem ec2-user@<Public-IP-of-instance>
 ```
 
-#### 2.5. Install MariaDB
+#### 2.6. Install MariaDB
 Install and configure MariaDB on the EC2 instance.
 ```bash
 sudo yum update -y
@@ -122,20 +130,30 @@ sudo systemctl start mariadb
 sudo systemctl enable mariadb
 ```
 
-#### 2.6. Secure MariaDB Installation
+#### 2.7. Secure MariaDB Installation
 Secure the MariaDB instance by setting a root password, removing anonymous users, etc.
 ```bash
 sudo mysql_secure_installation
 ```
 
-### 2.7. Create a Sample Database
-Create a test database and user for the migration.
+### 2.8. Create and Populate the Source Database
+Download and import the SQL file which is a free sample database from the [Chinook Database](https://github.com/lerocha/chinook-database) repository to populate the source database.
 ```bash
-mysql -u root -p
-CREATE DATABASE exampledb;
-CREATE USER 'user'@'%' IDENTIFIED BY 'password';
-GRANT ALL PRIVILEGES ON exampledb.* TO 'user'@'%';
-FLUSH PRIVILEGES;
+# Download the Chinook_Db2.sql file
+wget https://github.com/lerocha/chinook-database/releases/download/v1.4.5/Chinook_Db2.sql
+
+# Import the Chinook_Db2.sql file directly into MariaDB
+mysql -u root -p < Chinook_Db2.sql
+```
+
+#### 2.9. Verify the Import
+To confirm that the sample database has been correctly imported.
+```bash
+# Check if the tables were imported correctly
+mysql -u root -p -e "SHOW DATABASES;"
+
+# Once you know the database name, you can check its tables
+mysql -u root -p -e "USE exampledb; SHOW TABLES;"
 ```
 
 ---

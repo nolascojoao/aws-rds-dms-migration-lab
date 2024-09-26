@@ -96,20 +96,19 @@ aws ec2 create-security-group \
 
 #### 2.3. Add Rules to Security Group
 Allow inbound SSH (port 22) and MariaDB (port 3306) traffic.
-  - Replace `<security-group-id>` for your RDS Security group ID.
   - Replace `<sg-ec2-id>`for your EC2 Security Group ID.
 ```bash
 aws ec2 authorize-security-group-ingress \
-  --group-id <security-group-id> \
+  --group-id <sg-ec2-id> \
   --protocol tcp \
   --port 22 \
   --cidr 0.0.0.0/0
 
 aws ec2 authorize-security-group-ingress \
-  --group-id <sg-rds-id> \
+  --group-id <sg-ec2-id> \
   --protocol tcp \
   --port 3306 \
-  --source-group <sg-ec2-id>
+  --cidr 0.0.0.0/0
 ```
 
 #### 2.4. Launch EC2 Instance
@@ -204,7 +203,25 @@ aws ec2 create-security-group \
   --vpc-id <vpc-id>
 ```
 
-#### 3.3. Launch RDS MariaDB Instance
+#### 3.3. Add Rules to Security Group
+Allow inbound SSH (port 22) and MariaDB (port 3306) traffic.
+  - Replace `<rds-security-group-id>` for your RDS Security group ID.
+  - Replace `<sg-ec2-id>`for your EC2 Security Group ID.
+```bash
+aws ec2 authorize-security-group-ingress \
+  --group-id <rds-security-group-id> \
+  --protocol tcp \
+  --port 22 \
+  --cidr 0.0.0.0/0
+
+aws ec2 authorize-security-group-ingress \
+  --group-id <sg-rds-id> \
+  --protocol tcp \
+  --port 3306 \
+  --source-group <sg-ec2-id>
+```
+
+#### 3.4. Launch RDS MariaDB Instance
 Create an RDS MariaDB instance which will serve as the destination for the migration.
   - Replace `<db-instance-identifier>` with your desired RDS instance identifier.
   - Replace `<az_name>` with the same availability zone as your EC2 instance.
@@ -226,7 +243,7 @@ aws rds create-db-instance \
   --master-username root --master-user-password adminpassword
 ```
 
-#### 3.4. Retrieve and Record the RDS Endpoint
+#### 3.5. Retrieve and Record the RDS Endpoint
 Creating the RDS instance, retrieve and note the RDS endpoint address for use in the migration process.
 - Replace `<db-instance-identifier>` with your RDS instance identifier.
 ```bash

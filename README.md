@@ -74,15 +74,7 @@ aws ec2 associate-route-table --subnet-id <public-subnet-id> --route-table-id <r
 ---
 
 ## Step 2: Configure the EC2 Instance Simulating On-Premise
-#### 2.1. Create a Key Pair
-Before launching the EC2 instance create a key pair that you will use to access the instance.
-  - Replace YourKeyPairName with the desired name for your key pair.
-```bash
-aws ec2 create-key-pair --key-name YourKeyPairName --query 'KeyMaterial' --output text > YourKeyPairName.pem
-chmod 400 YourKeyPairName.pem
-```
-
-#### 2.2. Create a Security Group
+#### 2.1. Create a Security Group
 Create a security group that allows traffic for MariaDB and SSH access.
   - Replace `<sg-name>` for your security group name.
   - Replace `SG-EC2` for your security group description.
@@ -94,7 +86,7 @@ aws ec2 create-security-group \
   --vpc-id <vpc-id>
 ```
 
-#### 2.3. Add Rules to Security Group
+#### 2.2. Add Rules to Security Group
 Allow inbound SSH (port 22) and MariaDB (port 3306) traffic.
   - Replace `<sg-ec2-id>`for your EC2 Security Group ID.
 ```bash
@@ -109,6 +101,14 @@ aws ec2 authorize-security-group-ingress \
   --protocol tcp \
   --port 3306 \
   --cidr 0.0.0.0/0
+```
+
+#### 2.3. Create a Key Pair
+Before launching the EC2 instance create a key pair that you will use to access the instance.
+  - Replace YourKeyPairName with the desired name for your key pair.
+```bash
+aws ec2 create-key-pair --key-name YourKeyPairName --query 'KeyMaterial' --output text > YourKeyPairName.pem
+chmod 400 YourKeyPairName.pem
 ```
 
 #### 2.4. Launch EC2 Instance

@@ -25,6 +25,10 @@ Create a VPC that will be used to host the EC2 instance and RDS.
 aws ec2 create-vpc --cidr-block <cidr-block>
 ```
 
+<div align="center">
+  <img src="screenshot/1.1.PNG" width=""/>
+</div>
+
 #### 1.2. Create Subnets
 Create subnets for the EC2 instance and RDS. One public subnet for EC2 and two private subnets for RDS, one in a different AZ.
   - Replace `<vpc-id>` with the ID of the VPC created in the previous step.
@@ -37,15 +41,27 @@ Create subnets for the EC2 instance and RDS. One public subnet for EC2 and two p
 aws ec2 create-subnet --vpc-id <vpc-id> --cidr-block <cidr-block> --availability-zone <az-name>
 ```
 
+<div align="center">
+  <img src="screenshot/1.2.1.PNG" width=""/>
+</div>
+
 #### First Private Subnet for RDS (same AZ as public):
 ```bash
 aws ec2 create-subnet --vpc-id <vpc-id> --cidr-block <cidr-block> --availability-zone <az-name>
 ```
 
+<div align="center">
+  <img src="screenshot/1.2.2.PNG" width=""/>
+</div>
+
 #### Second Private Subnet for RDS (different AZ):
 ```bash
 aws ec2 create-subnet --vpc-id <vpc-id> --cidr-block <cidr-block> --availability-zone <az-name-different>
 ```
+
+<div align="center">
+  <img src="screenshot/1.2.3.PNG" width=""/>
+</div>
 
 #### 1.3. Set up an Internet Gateway
 Attach an Internet Gateway to the VPC to allow the EC2 instance to access the internet.
@@ -56,6 +72,10 @@ aws ec2 create-internet-gateway
 
 aws ec2 attach-internet-gateway --vpc-id <vpc-id> --internet-gateway-id <gateway-id>
 ```
+
+<div align="center">
+  <img src="screenshot/1.3.PNG" width=""/>
+</div>
 
 #### 1.4. Create and Associate a Route Table
 Create a route table for the public subnet and associate it with the Internet Gateway.
@@ -71,6 +91,10 @@ aws ec2 create-route \
 aws ec2 associate-route-table --subnet-id <public-subnet-id> --route-table-id <route-table-id>
 ```
 
+<div align="center">
+  <img src="screenshot/1.4.PNG" width=""/>
+</div>
+
 ---
 
 ## Step 2: Configure the EC2 Instance Simulating On-Premise
@@ -85,6 +109,10 @@ aws ec2 create-security-group \
   --description "SG-EC2" \
   --vpc-id <vpc-id>
 ```
+
+<div align="center">
+  <img src="screenshot/2.1.PNG" width=""/>
+</div>
 
 #### 2.2. Add Rules to Security Group
 Allow inbound SSH (port 22) and MariaDB (port 3306) traffic.
@@ -103,6 +131,10 @@ aws ec2 authorize-security-group-ingress \
   --cidr 0.0.0.0/0
 ```
 
+<div align="center">
+  <img src="screenshot/2.2.PNG" width=""/>
+</div>
+
 #### 2.3. Create a Key Pair
 Before launching the EC2 instance create a key pair that you will use to access the instance.
   - Replace YourKeyPairName with the desired name for your key pair.
@@ -110,6 +142,10 @@ Before launching the EC2 instance create a key pair that you will use to access 
 aws ec2 create-key-pair --key-name YourKeyPairName --query 'KeyMaterial' --output text > YourKeyPairName.pem
 chmod 400 YourKeyPairName.pem
 ```
+
+<div align="center">
+  <img src="screenshot/2.3.PNG" width=""/>
+</div>
 
 #### 2.4. Launch EC2 Instance
 Simulate an on-premise environment running MariaDB.
@@ -127,6 +163,10 @@ aws ec2 run-instances \
   --subnet-id <subnet-id> 
 ```
 
+<div align="center">
+  <img src="screenshot/2.4.PNG" width=""/>
+</div>
+
 #### 2.5. Connect to EC2 via SSH
 Retrieve the Public IPv4 Address of EC2 Instance:
   - Replace `<instance-id>` with your EC2 instance ID.
@@ -136,6 +176,10 @@ aws ec2 describe-instances \
   --query "Reservations[*].Instances[*].PublicIpAddress" \
   --output text
 ```
+
+<div align="center">
+  <img src="screenshot/2.5.PNG" width=""/>
+</div>
 
 SSH into the EC2 instance to configure MariaDB.
   - Replace `<Public-IP-of-instance>` for the public IP of your EC2 instance.
@@ -153,6 +197,18 @@ sudo systemctl enable mariadb
 sudo systemctl status mariadb
 ```
 
+<div align="center">
+  <img src="screenshot/2.6.1.PNG" width=""/>
+</div>
+
+<div align="center">
+  <img src="screenshot/2.6.2.PNG" width=""/>
+</div>
+
+<div align="center">
+  <img src="screenshot/2.6.3.PNG" width=""/>
+</div>
+
 ### 2.7. Create and Populate the Source Database
 Download and import the SQL file which is a free sample database from the [Chinook Database](https://github.com/lerocha/chinook-database) repository to populate the source database.
 ```bash
@@ -164,6 +220,18 @@ sudo mysql -u root -p
 source Chinook_MySql.sql
 ```
 
+<div align="center">
+  <img src="screenshot/2.7.1.PNG" width=""/>
+</div>
+
+<div align="center">
+  <img src="screenshot/2.7.2.PNG" width=""/>
+</div>
+
+<div align="center">
+  <img src="screenshot/2.7.3.PNG" width=""/>
+</div>
+
 #### 2.8. Verify the Import
 To confirm that the sample database has been correctly imported.
 ```bash
@@ -173,6 +241,10 @@ sudo mysql -u root -p -e "SHOW DATABASES;"
 # Once you know the database name you can check its tables
 sudo mysql -u root -p -e "USE Chinook; SHOW TABLES;"
 ```
+
+<div align="center">
+  <img src="screenshot/2.8.PNG" width=""/>
+</div>
 
 ---
 

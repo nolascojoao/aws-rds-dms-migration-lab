@@ -245,7 +245,7 @@ aws rds create-db-instance \
 ```
 
 #### 3.5. Retrieve and Record the RDS Endpoint
-Creating the RDS instance, retrieve and note the RDS endpoint address for use in the migration process.
+After creating the RDS instance retrieve and note the RDS endpoint address for use in the migration process.
 - Replace `<db-instance-identifier>` with your RDS instance identifier.
 ```bash
 aws rds describe-db-instances --db-instance-identifier <db-instance-identifier> --query "DBInstances[*].[Endpoint.Address]" --output text

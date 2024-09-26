@@ -160,7 +160,8 @@ Download and import the SQL file which is a free sample database from the [Chino
 wget https://github.com/lerocha/chinook-database/releases/download/v1.4.5/Chinook_MySql.sql
 
 # Import the Chinook_MySql.sql file directly into MariaDB
-mysql -u root -p < Chinook_MySql.sql
+sudo mysql -u root -p
+source Chinook_MySql.sql
 ```
 
 #### 2.8. Verify the Import

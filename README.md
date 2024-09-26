@@ -181,7 +181,18 @@ mysql -u root -p -e "USE Chinook; SHOW TABLES;"
 ---
 
 ## Step 3: Create RDS MariaDB Instance
-#### 3.1. Create a Security Group for RDS
+#### 3.1. Create a Subnet Group
+Create a subnet group for RDS that includes the two private subnets.
+  - Replace `<db-subnet-group-name>` with your desired subnet group name.
+  - Replace `<subnet-id-1>` and `<subnet-id-2`> with the IDs of your two private subnets.
+ ```bash
+aws rds create-db-subnet-group \
+  --db-subnet-group-name <db-subnet-group-name> \
+  --db-subnet-group-description "Subnet group for RDS" \
+  --subnet-ids <subnet-id-1> <subnet-id-2>
+```
+
+#### 3.2. Create a Security Group for RDS
 Create a security group that allows MariaDB traffic to the RDS instance.
   - Replace `<sg-name>` with your security group name.
   - Replace `SG-RDS` with your security group description.
@@ -193,29 +204,29 @@ aws ec2 create-security-group \
   --vpc-id <vpc-id>
 ```
 
-#### 3.2. Launch RDS MariaDB Instance
+#### 3.3. Launch RDS MariaDB Instance
 Create an RDS MariaDB instance which will serve as the destination for the migration.
-  - Replace `<db-instance-identifier>` with your desired RDS instance identifier.
-  - Replace `<az_name>` with the same availability zone as your EC2 instance.
-  - Replace `<sb-group-name>` with the name of your DB subnet group.
-  - Replace `<sg-id>` with your VPC security group ID.
-  - Replace `root` with your master username.
-  - Replace `adminpassword` with your master password.
+Replace `<db-instance-identifier>` with your desired RDS instance identifier.
+Replace `<az_name>` with the same availability zone as your EC2 instance.
+Replace `<sb-group-name>` with the name of your DB subnet group.
+Replace `<sg-id>` with your VPC security group ID.
+Replace `root` with your master username.
+Replace `adminpassword` with your master password.
 ```bash
 aws rds create-db-instance \
-	--db-instance-identifier <db-instance-identifier> \
-	--engine mariadb \
-	--engine-version 10.11.9 \
-	--db-instance-class db.t3.micro \
-	--allocated-storage 20 \
-	--availability-zone <az_name> \
-	--db-subnet-group-name <sb_group_name> \
-	--vpc-security-group-ids <sg-id> \
-	--no-publicly-accessible \
-	--master-username root --master-user-password adminpassword
+  --db-instance-identifier <db-instance-identifier> \
+  --engine mariadb \
+  --engine-version 10.11.9 \
+  --db-instance-class db.t3.micro \
+  --allocated-storage 20 \
+  --availability-zone <az_name> \
+  --db-subnet-group-name <sb_group_name> \
+  --vpc-security-group-ids <sg-id> \
+  --no-publicly-accessible \
+  --master-username root --master-user-password adminpassword
 ```
 
-#### 3.3. Retrieve and Record the RDS Endpoint
+#### 3.4. Retrieve and Record the RDS Endpoint
 Creating the RDS instance, retrieve and note the RDS endpoint address for use in the migration process.
 - Replace `<db-instance-identifier>` with your RDS instance identifier.
 ```bash

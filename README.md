@@ -13,6 +13,10 @@
 - Charges may apply for completing this lab. [AWS Pricing](https://aws.amazon.com/pricing/)
 ---
 
+# *Part I: Set Up Origin Database Environment*
+
+---
+
 ## Step 1: Create a VPC and Subnets
 #### 1.1. Create a VPC
 Create a VPC that will be used to host the EC2 instance and RDS.
@@ -155,6 +159,10 @@ mysql -u root -p -e "SHOW DATABASES;"
 # Once you know the database name, you can check its tables
 mysql -u root -p -e "USE exampledb; SHOW TABLES;"
 ```
+
+---
+
+# *Part II: Database Migration*
 
 ---
 

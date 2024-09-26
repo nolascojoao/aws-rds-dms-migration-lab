@@ -1,9 +1,9 @@
 
 /*******************************************************************************
    Chinook Database - Version 1.4.5
-   Script: Chinook_Db2.sql
+   Script: Chinook_MySql.sql
    Description: Creates and populates the Chinook database.
-   DB Server: Db2
+   DB Server: MySql
    Author: Luis Rocha
    License: https://github.com/lerocha/chinook-database/blob/master/LICENSE.md
 ********************************************************************************/
@@ -13,127 +13,141 @@
            will be lost when this file is regenerated.
 ********************************************************************************/
 
+/*******************************************************************************
+   Drop database if it exists
+********************************************************************************/
+DROP DATABASE IF EXISTS `Chinook`;
+
+
+/*******************************************************************************
+   Create database
+********************************************************************************/
+CREATE DATABASE `Chinook`;
+
+
+USE `Chinook`;
+
 
 /*******************************************************************************
    Create Tables
 ********************************************************************************/
-CREATE TABLE "Album"
+CREATE TABLE `Album`
 (
-    "AlbumId" INT NOT NULL,
-    "Title" VARCHAR(160) NOT NULL,
-    "ArtistId" INT NOT NULL,
-    CONSTRAINT "PK_Album" PRIMARY KEY  ("AlbumId")
+    `AlbumId` INT NOT NULL,
+    `Title` NVARCHAR(160) NOT NULL,
+    `ArtistId` INT NOT NULL,
+    CONSTRAINT `PK_Album` PRIMARY KEY  (`AlbumId`)
 );
 
-CREATE TABLE "Artist"
+CREATE TABLE `Artist`
 (
-    "ArtistId" INT NOT NULL,
-    "Name" VARCHAR(120),
-    CONSTRAINT "PK_Artist" PRIMARY KEY  ("ArtistId")
+    `ArtistId` INT NOT NULL,
+    `Name` NVARCHAR(120),
+    CONSTRAINT `PK_Artist` PRIMARY KEY  (`ArtistId`)
 );
 
-CREATE TABLE "Customer"
+CREATE TABLE `Customer`
 (
-    "CustomerId" INT NOT NULL,
-    "FirstName" VARCHAR(40) NOT NULL,
-    "LastName" VARCHAR(20) NOT NULL,
-    "Company" VARCHAR(80),
-    "Address" VARCHAR(70),
-    "City" VARCHAR(40),
-    "State" VARCHAR(40),
-    "Country" VARCHAR(40),
-    "PostalCode" VARCHAR(10),
-    "Phone" VARCHAR(24),
-    "Fax" VARCHAR(24),
-    "Email" VARCHAR(60) NOT NULL,
-    "SupportRepId" INT,
-    CONSTRAINT "PK_Customer" PRIMARY KEY  ("CustomerId")
+    `CustomerId` INT NOT NULL,
+    `FirstName` NVARCHAR(40) NOT NULL,
+    `LastName` NVARCHAR(20) NOT NULL,
+    `Company` NVARCHAR(80),
+    `Address` NVARCHAR(70),
+    `City` NVARCHAR(40),
+    `State` NVARCHAR(40),
+    `Country` NVARCHAR(40),
+    `PostalCode` NVARCHAR(10),
+    `Phone` NVARCHAR(24),
+    `Fax` NVARCHAR(24),
+    `Email` NVARCHAR(60) NOT NULL,
+    `SupportRepId` INT,
+    CONSTRAINT `PK_Customer` PRIMARY KEY  (`CustomerId`)
 );
 
-CREATE TABLE "Employee"
+CREATE TABLE `Employee`
 (
-    "EmployeeId" INT NOT NULL,
-    "LastName" VARCHAR(20) NOT NULL,
-    "FirstName" VARCHAR(20) NOT NULL,
-    "Title" VARCHAR(30),
-    "ReportsTo" INT,
-    "BirthDate" DATE,
-    "HireDate" DATE,
-    "Address" VARCHAR(70),
-    "City" VARCHAR(40),
-    "State" VARCHAR(40),
-    "Country" VARCHAR(40),
-    "PostalCode" VARCHAR(10),
-    "Phone" VARCHAR(24),
-    "Fax" VARCHAR(24),
-    "Email" VARCHAR(60),
-    CONSTRAINT "PK_Employee" PRIMARY KEY  ("EmployeeId")
+    `EmployeeId` INT NOT NULL,
+    `LastName` NVARCHAR(20) NOT NULL,
+    `FirstName` NVARCHAR(20) NOT NULL,
+    `Title` NVARCHAR(30),
+    `ReportsTo` INT,
+    `BirthDate` DATETIME,
+    `HireDate` DATETIME,
+    `Address` NVARCHAR(70),
+    `City` NVARCHAR(40),
+    `State` NVARCHAR(40),
+    `Country` NVARCHAR(40),
+    `PostalCode` NVARCHAR(10),
+    `Phone` NVARCHAR(24),
+    `Fax` NVARCHAR(24),
+    `Email` NVARCHAR(60),
+    CONSTRAINT `PK_Employee` PRIMARY KEY  (`EmployeeId`)
 );
 
-CREATE TABLE "Genre"
+CREATE TABLE `Genre`
 (
-    "GenreId" INT NOT NULL,
-    "Name" VARCHAR(120),
-    CONSTRAINT "PK_Genre" PRIMARY KEY  ("GenreId")
+    `GenreId` INT NOT NULL,
+    `Name` NVARCHAR(120),
+    CONSTRAINT `PK_Genre` PRIMARY KEY  (`GenreId`)
 );
 
-CREATE TABLE "Invoice"
+CREATE TABLE `Invoice`
 (
-    "InvoiceId" INT NOT NULL,
-    "CustomerId" INT NOT NULL,
-    "InvoiceDate" DATE NOT NULL,
-    "BillingAddress" VARCHAR(70),
-    "BillingCity" VARCHAR(40),
-    "BillingState" VARCHAR(40),
-    "BillingCountry" VARCHAR(40),
-    "BillingPostalCode" VARCHAR(10),
-    "Total" NUMERIC(10,2) NOT NULL,
-    CONSTRAINT "PK_Invoice" PRIMARY KEY  ("InvoiceId")
+    `InvoiceId` INT NOT NULL,
+    `CustomerId` INT NOT NULL,
+    `InvoiceDate` DATETIME NOT NULL,
+    `BillingAddress` NVARCHAR(70),
+    `BillingCity` NVARCHAR(40),
+    `BillingState` NVARCHAR(40),
+    `BillingCountry` NVARCHAR(40),
+    `BillingPostalCode` NVARCHAR(10),
+    `Total` NUMERIC(10,2) NOT NULL,
+    CONSTRAINT `PK_Invoice` PRIMARY KEY  (`InvoiceId`)
 );
 
-CREATE TABLE "InvoiceLine"
+CREATE TABLE `InvoiceLine`
 (
-    "InvoiceLineId" INT NOT NULL,
-    "InvoiceId" INT NOT NULL,
-    "TrackId" INT NOT NULL,
-    "UnitPrice" NUMERIC(10,2) NOT NULL,
-    "Quantity" INT NOT NULL,
-    CONSTRAINT "PK_InvoiceLine" PRIMARY KEY  ("InvoiceLineId")
+    `InvoiceLineId` INT NOT NULL,
+    `InvoiceId` INT NOT NULL,
+    `TrackId` INT NOT NULL,
+    `UnitPrice` NUMERIC(10,2) NOT NULL,
+    `Quantity` INT NOT NULL,
+    CONSTRAINT `PK_InvoiceLine` PRIMARY KEY  (`InvoiceLineId`)
 );
 
-CREATE TABLE "MediaType"
+CREATE TABLE `MediaType`
 (
-    "MediaTypeId" INT NOT NULL,
-    "Name" VARCHAR(120),
-    CONSTRAINT "PK_MediaType" PRIMARY KEY  ("MediaTypeId")
+    `MediaTypeId` INT NOT NULL,
+    `Name` NVARCHAR(120),
+    CONSTRAINT `PK_MediaType` PRIMARY KEY  (`MediaTypeId`)
 );
 
-CREATE TABLE "Playlist"
+CREATE TABLE `Playlist`
 (
-    "PlaylistId" INT NOT NULL,
-    "Name" VARCHAR(120),
-    CONSTRAINT "PK_Playlist" PRIMARY KEY  ("PlaylistId")
+    `PlaylistId` INT NOT NULL,
+    `Name` NVARCHAR(120),
+    CONSTRAINT `PK_Playlist` PRIMARY KEY  (`PlaylistId`)
 );
 
-CREATE TABLE "PlaylistTrack"
+CREATE TABLE `PlaylistTrack`
 (
-    "PlaylistId" INT NOT NULL,
-    "TrackId" INT NOT NULL,
-    CONSTRAINT "PK_PlaylistTrack" PRIMARY KEY  ("PlaylistId", "TrackId")
+    `PlaylistId` INT NOT NULL,
+    `TrackId` INT NOT NULL,
+    CONSTRAINT `PK_PlaylistTrack` PRIMARY KEY  (`PlaylistId`, `TrackId`)
 );
 
-CREATE TABLE "Track"
+CREATE TABLE `Track`
 (
-    "TrackId" INT NOT NULL,
-    "Name" VARCHAR(200) NOT NULL,
-    "AlbumId" INT,
-    "MediaTypeId" INT NOT NULL,
-    "GenreId" INT,
-    "Composer" VARCHAR(220),
-    "Milliseconds" INT NOT NULL,
-    "Bytes" INT,
-    "UnitPrice" NUMERIC(10,2) NOT NULL,
-    CONSTRAINT "PK_Track" PRIMARY KEY  ("TrackId")
+    `TrackId` INT NOT NULL,
+    `Name` NVARCHAR(200) NOT NULL,
+    `AlbumId` INT,
+    `MediaTypeId` INT NOT NULL,
+    `GenreId` INT,
+    `Composer` NVARCHAR(220),
+    `Milliseconds` INT NOT NULL,
+    `Bytes` INT,
+    `UnitPrice` NUMERIC(10,2) NOT NULL,
+    CONSTRAINT `PK_Track` PRIMARY KEY  (`TrackId`)
 );
 
 
@@ -145,67 +159,67 @@ CREATE TABLE "Track"
 /*******************************************************************************
    Create Foreign Keys
 ********************************************************************************/
-ALTER TABLE "Album" ADD CONSTRAINT "FK_AlbumArtistId"
-    FOREIGN KEY ("ArtistId") REFERENCES "Artist" ("ArtistId") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `Album` ADD CONSTRAINT `FK_AlbumArtistId`
+    FOREIGN KEY (`ArtistId`) REFERENCES `Artist` (`ArtistId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
-CREATE INDEX "IFK_AlbumArtistId" ON "Album" ("ArtistId");
+CREATE INDEX `IFK_AlbumArtistId` ON `Album` (`ArtistId`);
 
-ALTER TABLE "Customer" ADD CONSTRAINT "FK_CustomerSupportRepId"
-    FOREIGN KEY ("SupportRepId") REFERENCES "Employee" ("EmployeeId") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `Customer` ADD CONSTRAINT `FK_CustomerSupportRepId`
+    FOREIGN KEY (`SupportRepId`) REFERENCES `Employee` (`EmployeeId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
-CREATE INDEX "IFK_CustomerSupportRepId" ON "Customer" ("SupportRepId");
+CREATE INDEX `IFK_CustomerSupportRepId` ON `Customer` (`SupportRepId`);
 
-ALTER TABLE "Employee" ADD CONSTRAINT "FK_EmployeeReportsTo"
-    FOREIGN KEY ("ReportsTo") REFERENCES "Employee" ("EmployeeId") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `Employee` ADD CONSTRAINT `FK_EmployeeReportsTo`
+    FOREIGN KEY (`ReportsTo`) REFERENCES `Employee` (`EmployeeId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
-CREATE INDEX "IFK_EmployeeReportsTo" ON "Employee" ("ReportsTo");
+CREATE INDEX `IFK_EmployeeReportsTo` ON `Employee` (`ReportsTo`);
 
-ALTER TABLE "Invoice" ADD CONSTRAINT "FK_InvoiceCustomerId"
-    FOREIGN KEY ("CustomerId") REFERENCES "Customer" ("CustomerId") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `Invoice` ADD CONSTRAINT `FK_InvoiceCustomerId`
+    FOREIGN KEY (`CustomerId`) REFERENCES `Customer` (`CustomerId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
-CREATE INDEX "IFK_InvoiceCustomerId" ON "Invoice" ("CustomerId");
+CREATE INDEX `IFK_InvoiceCustomerId` ON `Invoice` (`CustomerId`);
 
-ALTER TABLE "InvoiceLine" ADD CONSTRAINT "FK_InvoiceLineInvoiceId"
-    FOREIGN KEY ("InvoiceId") REFERENCES "Invoice" ("InvoiceId") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `InvoiceLine` ADD CONSTRAINT `FK_InvoiceLineInvoiceId`
+    FOREIGN KEY (`InvoiceId`) REFERENCES `Invoice` (`InvoiceId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
-CREATE INDEX "IFK_InvoiceLineInvoiceId" ON "InvoiceLine" ("InvoiceId");
+CREATE INDEX `IFK_InvoiceLineInvoiceId` ON `InvoiceLine` (`InvoiceId`);
 
-ALTER TABLE "InvoiceLine" ADD CONSTRAINT "FK_InvoiceLineTrackId"
-    FOREIGN KEY ("TrackId") REFERENCES "Track" ("TrackId") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `InvoiceLine` ADD CONSTRAINT `FK_InvoiceLineTrackId`
+    FOREIGN KEY (`TrackId`) REFERENCES `Track` (`TrackId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
-CREATE INDEX "IFK_InvoiceLineTrackId" ON "InvoiceLine" ("TrackId");
+CREATE INDEX `IFK_InvoiceLineTrackId` ON `InvoiceLine` (`TrackId`);
 
-ALTER TABLE "PlaylistTrack" ADD CONSTRAINT "FK_PlaylistTrackPlaylistId"
-    FOREIGN KEY ("PlaylistId") REFERENCES "Playlist" ("PlaylistId") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `PlaylistTrack` ADD CONSTRAINT `FK_PlaylistTrackPlaylistId`
+    FOREIGN KEY (`PlaylistId`) REFERENCES `Playlist` (`PlaylistId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
-CREATE INDEX "IFK_PlaylistTrackPlaylistId" ON "PlaylistTrack" ("PlaylistId");
+CREATE INDEX `IFK_PlaylistTrackPlaylistId` ON `PlaylistTrack` (`PlaylistId`);
 
-ALTER TABLE "PlaylistTrack" ADD CONSTRAINT "FK_PlaylistTrackTrackId"
-    FOREIGN KEY ("TrackId") REFERENCES "Track" ("TrackId") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `PlaylistTrack` ADD CONSTRAINT `FK_PlaylistTrackTrackId`
+    FOREIGN KEY (`TrackId`) REFERENCES `Track` (`TrackId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
-CREATE INDEX "IFK_PlaylistTrackTrackId" ON "PlaylistTrack" ("TrackId");
+CREATE INDEX `IFK_PlaylistTrackTrackId` ON `PlaylistTrack` (`TrackId`);
 
-ALTER TABLE "Track" ADD CONSTRAINT "FK_TrackAlbumId"
-    FOREIGN KEY ("AlbumId") REFERENCES "Album" ("AlbumId") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `Track` ADD CONSTRAINT `FK_TrackAlbumId`
+    FOREIGN KEY (`AlbumId`) REFERENCES `Album` (`AlbumId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
-CREATE INDEX "IFK_TrackAlbumId" ON "Track" ("AlbumId");
+CREATE INDEX `IFK_TrackAlbumId` ON `Track` (`AlbumId`);
 
-ALTER TABLE "Track" ADD CONSTRAINT "FK_TrackGenreId"
-    FOREIGN KEY ("GenreId") REFERENCES "Genre" ("GenreId") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `Track` ADD CONSTRAINT `FK_TrackGenreId`
+    FOREIGN KEY (`GenreId`) REFERENCES `Genre` (`GenreId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
-CREATE INDEX "IFK_TrackGenreId" ON "Track" ("GenreId");
+CREATE INDEX `IFK_TrackGenreId` ON `Track` (`GenreId`);
 
-ALTER TABLE "Track" ADD CONSTRAINT "FK_TrackMediaTypeId"
-    FOREIGN KEY ("MediaTypeId") REFERENCES "MediaType" ("MediaTypeId") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `Track` ADD CONSTRAINT `FK_TrackMediaTypeId`
+    FOREIGN KEY (`MediaTypeId`) REFERENCES `MediaType` (`MediaTypeId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
-CREATE INDEX "IFK_TrackMediaTypeId" ON "Track" ("MediaTypeId");
+CREATE INDEX `IFK_TrackMediaTypeId` ON `Track` (`MediaTypeId`);
 
 
 /*******************************************************************************
    Populate Tables
 ********************************************************************************/
 
-INSERT INTO "Genre" ("GenreId", "Name") VALUES
+INSERT INTO `Genre` (`GenreId`, `Name`) VALUES
     (1, N'Rock'),
     (2, N'Jazz'),
     (3, N'Metal'),
@@ -232,14 +246,14 @@ INSERT INTO "Genre" ("GenreId", "Name") VALUES
     (24, N'Classical'),
     (25, N'Opera');
 
-INSERT INTO "MediaType" ("MediaTypeId", "Name") VALUES
+INSERT INTO `MediaType` (`MediaTypeId`, `Name`) VALUES
     (1, N'MPEG audio file'),
     (2, N'Protected AAC audio file'),
     (3, N'Protected MPEG-4 video file'),
     (4, N'Purchased AAC audio file'),
     (5, N'AAC audio file');
 
-INSERT INTO "Artist" ("ArtistId", "Name") VALUES
+INSERT INTO `Artist` (`ArtistId`, `Name`) VALUES
     (1, N'AC/DC'),
     (2, N'Accept'),
     (3, N'Aerosmith'),
@@ -516,7 +530,7 @@ INSERT INTO "Artist" ("ArtistId", "Name") VALUES
     (274, N'Nash Ensemble'),
     (275, N'Philip Glass Ensemble');
 
-INSERT INTO "Album" ("AlbumId", "Title", "ArtistId") VALUES
+INSERT INTO `Album` (`AlbumId`, `Title`, `ArtistId`) VALUES
     (1, N'For Those About To Rock We Salute You', 1),
     (2, N'Balls to the Wall', 2),
     (3, N'Restless and Wild', 2),
@@ -865,7 +879,7 @@ INSERT INTO "Album" ("AlbumId", "Title", "ArtistId") VALUES
     (346, N'Mozart: Chamber Music', 274),
     (347, N'Koyaanisqatsi (Soundtrack from the Motion Picture)', 275);
 
-INSERT INTO "Track" ("TrackId", "Name", "AlbumId", "MediaTypeId", "GenreId", "Composer", "Milliseconds", "Bytes", "UnitPrice") VALUES
+INSERT INTO `Track` (`TrackId`, `Name`, `AlbumId`, `MediaTypeId`, `GenreId`, `Composer`, `Milliseconds`, `Bytes`, `UnitPrice`) VALUES
     (1, N'For Those About To Rock (We Salute You)', 1, 1, 1, N'Angus Young, Malcolm Young, Brian Johnson', 343719, 11170334, 0.99),
     (2, N'Balls to the Wall', 2, 2, 1, N'U. Dirkschneider, W. Hoffmann, H. Frank, P. Baltes, S. Kaufmann, G. Hoffmann', 342562, 5510424, 0.99),
     (3, N'Fast As a Shark', 3, 2, 1, N'F. Baltes, S. Kaufman, U. Dirkscneider & W. Hoffman', 230619, 3990994, 0.99),
@@ -1867,7 +1881,7 @@ INSERT INTO "Track" ("TrackId", "Name", "AlbumId", "MediaTypeId", "GenreId", "Co
     (999, N'Still', 80, 1, 1, N'Dave Grohl, Taylor Hawkins, Nate Mendel, Chris Shiflett/FOO FIGHTERS', 313182, 10323157, 0.99),
     (1000, N'What If I Do?', 80, 1, 1, N'Dave Grohl, Taylor Hawkins, Nate Mendel, Chris Shiflett/FOO FIGHTERS', 302994, 9929799, 0.99);
 
-INSERT INTO "Track" ("TrackId", "Name", "AlbumId", "MediaTypeId", "GenreId", "Composer", "Milliseconds", "Bytes", "UnitPrice") VALUES
+INSERT INTO `Track` (`TrackId`, `Name`, `AlbumId`, `MediaTypeId`, `GenreId`, `Composer`, `Milliseconds`, `Bytes`, `UnitPrice`) VALUES
     (1001, N'Miracle', 80, 1, 1, N'Dave Grohl, Taylor Hawkins, Nate Mendel, Chris Shiflett/FOO FIGHTERS', 209684, 6877994, 0.99),
     (1002, N'Another Round', 80, 1, 1, N'Dave Grohl, Taylor Hawkins, Nate Mendel, Chris Shiflett/FOO FIGHTERS', 265848, 8752670, 0.99),
     (1003, N'Friend Of A Friend', 80, 1, 1, N'Dave Grohl, Taylor Hawkins, Nate Mendel, Chris Shiflett/FOO FIGHTERS', 193280, 6355088, 0.99),
@@ -2869,7 +2883,7 @@ INSERT INTO "Track" ("TrackId", "Name", "AlbumId", "MediaTypeId", "GenreId", "Co
     (1999, N'Polly', 163, 1, 1, N'Kurt Cobain', 149995, 4885331, 0.99),
     (2000, N'Breed', 163, 1, 1, N'Kurt Cobain', 208378, 6759080, 0.99);
 
-INSERT INTO "Track" ("TrackId", "Name", "AlbumId", "MediaTypeId", "GenreId", "Composer", "Milliseconds", "Bytes", "UnitPrice") VALUES
+INSERT INTO `Track` (`TrackId`, `Name`, `AlbumId`, `MediaTypeId`, `GenreId`, `Composer`, `Milliseconds`, `Bytes`, `UnitPrice`) VALUES
     (2001, N'Tourette''s', 163, 1, 1, N'Kurt Cobain', 115591, 3753246, 0.99),
     (2002, N'Blew', 163, 1, 1, N'Kurt Cobain', 216346, 7096936, 0.99),
     (2003, N'Smells Like Teen Spirit', 164, 1, 1, N'Kurt Cobain', 301296, 9823847, 0.99),
@@ -3871,7 +3885,7 @@ INSERT INTO "Track" ("TrackId", "Name", "AlbumId", "MediaTypeId", "GenreId", "Co
     (2999, N'Heartland', 237, 1, 1, N'Bono/Clayton, Adam/Mullen Jr., Larry/The Edge', 303360, 9867748, 0.99),
     (3000, N'God Part II', 237, 1, 1, N'Bono/Clayton, Adam/Mullen Jr., Larry/The Edge', 195604, 6497570, 0.99);
 
-INSERT INTO "Track" ("TrackId", "Name", "AlbumId", "MediaTypeId", "GenreId", "Composer", "Milliseconds", "Bytes", "UnitPrice") VALUES
+INSERT INTO `Track` (`TrackId`, `Name`, `AlbumId`, `MediaTypeId`, `GenreId`, `Composer`, `Milliseconds`, `Bytes`, `UnitPrice`) VALUES
     (3001, N'The Star Spangled Banner', 237, 1, 1, N'Hendrix, Jimi', 43232, 1385810, 0.99),
     (3002, N'Bullet The Blue Sky', 237, 1, 1, N'Bono/Clayton, Adam/Mullen Jr., Larry/The Edge', 337005, 10993607, 0.99),
     (3003, N'All I Want Is You', 237, 1, 1, N'Bono/Clayton, Adam/Mullen Jr., Larry/The Edge', 390243, 12729820, 0.99),
@@ -4376,17 +4390,17 @@ INSERT INTO "Track" ("TrackId", "Name", "AlbumId", "MediaTypeId", "GenreId", "Co
     (3502, N'Quintet for Horn, Violin, 2 Violas, and Cello in E Flat Major, K. 407/386c: III. Allegro', 346, 2, 24, N'Wolfgang Amadeus Mozart', 221331, 3665114, 0.99),
     (3503, N'Koyaanisqatsi', 347, 2, 10, N'Philip Glass', 206005, 3305164, 0.99);
 
-INSERT INTO "Employee" ("EmployeeId", "LastName", "FirstName", "Title", "ReportsTo", "BirthDate", "HireDate", "Address", "City", "State", "Country", "PostalCode", "Phone", "Fax", "Email") VALUES
-    (1, N'Adams', N'Andrew', N'General Manager', NULL, '1962-02-18 00:00:00', '2002-08-14 00:00:00', N'11120 Jasper Ave NW', N'Edmonton', N'AB', N'Canada', N'T5K 2N1', N'+1 (780) 428-9482', N'+1 (780) 428-3457', N'andrew@chinookcorp.com'),
-    (2, N'Edwards', N'Nancy', N'Sales Manager', 1, '1958-12-08 00:00:00', '2002-05-01 00:00:00', N'825 8 Ave SW', N'Calgary', N'AB', N'Canada', N'T2P 2T3', N'+1 (403) 262-3443', N'+1 (403) 262-3322', N'nancy@chinookcorp.com'),
-    (3, N'Peacock', N'Jane', N'Sales Support Agent', 2, '1973-08-29 00:00:00', '2002-04-01 00:00:00', N'1111 6 Ave SW', N'Calgary', N'AB', N'Canada', N'T2P 5M5', N'+1 (403) 262-3443', N'+1 (403) 262-6712', N'jane@chinookcorp.com'),
-    (4, N'Park', N'Margaret', N'Sales Support Agent', 2, '1947-09-19 00:00:00', '2003-05-03 00:00:00', N'683 10 Street SW', N'Calgary', N'AB', N'Canada', N'T2P 5G3', N'+1 (403) 263-4423', N'+1 (403) 263-4289', N'margaret@chinookcorp.com'),
-    (5, N'Johnson', N'Steve', N'Sales Support Agent', 2, '1965-03-03 00:00:00', '2003-10-17 00:00:00', N'7727B 41 Ave', N'Calgary', N'AB', N'Canada', N'T3B 1Y7', N'1 (780) 836-9987', N'1 (780) 836-9543', N'steve@chinookcorp.com'),
-    (6, N'Mitchell', N'Michael', N'IT Manager', 1, '1973-07-01 00:00:00', '2003-10-17 00:00:00', N'5827 Bowness Road NW', N'Calgary', N'AB', N'Canada', N'T3B 0C5', N'+1 (403) 246-9887', N'+1 (403) 246-9899', N'michael@chinookcorp.com'),
-    (7, N'King', N'Robert', N'IT Staff', 6, '1970-05-29 00:00:00', '2004-01-02 00:00:00', N'590 Columbia Boulevard West', N'Lethbridge', N'AB', N'Canada', N'T1K 5N8', N'+1 (403) 456-9986', N'+1 (403) 456-8485', N'robert@chinookcorp.com'),
-    (8, N'Callahan', N'Laura', N'IT Staff', 6, '1968-01-09 00:00:00', '2004-03-04 00:00:00', N'923 7 ST NW', N'Lethbridge', N'AB', N'Canada', N'T1H 1Y8', N'+1 (403) 467-3351', N'+1 (403) 467-8772', N'laura@chinookcorp.com');
+INSERT INTO `Employee` (`EmployeeId`, `LastName`, `FirstName`, `Title`, `ReportsTo`, `BirthDate`, `HireDate`, `Address`, `City`, `State`, `Country`, `PostalCode`, `Phone`, `Fax`, `Email`) VALUES
+    (1, N'Adams', N'Andrew', N'General Manager', NULL, '1962/2/18', '2002/8/14', N'11120 Jasper Ave NW', N'Edmonton', N'AB', N'Canada', N'T5K 2N1', N'+1 (780) 428-9482', N'+1 (780) 428-3457', N'andrew@chinookcorp.com'),
+    (2, N'Edwards', N'Nancy', N'Sales Manager', 1, '1958/12/8', '2002/5/1', N'825 8 Ave SW', N'Calgary', N'AB', N'Canada', N'T2P 2T3', N'+1 (403) 262-3443', N'+1 (403) 262-3322', N'nancy@chinookcorp.com'),
+    (3, N'Peacock', N'Jane', N'Sales Support Agent', 2, '1973/8/29', '2002/4/1', N'1111 6 Ave SW', N'Calgary', N'AB', N'Canada', N'T2P 5M5', N'+1 (403) 262-3443', N'+1 (403) 262-6712', N'jane@chinookcorp.com'),
+    (4, N'Park', N'Margaret', N'Sales Support Agent', 2, '1947/9/19', '2003/5/3', N'683 10 Street SW', N'Calgary', N'AB', N'Canada', N'T2P 5G3', N'+1 (403) 263-4423', N'+1 (403) 263-4289', N'margaret@chinookcorp.com'),
+    (5, N'Johnson', N'Steve', N'Sales Support Agent', 2, '1965/3/3', '2003/10/17', N'7727B 41 Ave', N'Calgary', N'AB', N'Canada', N'T3B 1Y7', N'1 (780) 836-9987', N'1 (780) 836-9543', N'steve@chinookcorp.com'),
+    (6, N'Mitchell', N'Michael', N'IT Manager', 1, '1973/7/1', '2003/10/17', N'5827 Bowness Road NW', N'Calgary', N'AB', N'Canada', N'T3B 0C5', N'+1 (403) 246-9887', N'+1 (403) 246-9899', N'michael@chinookcorp.com'),
+    (7, N'King', N'Robert', N'IT Staff', 6, '1970/5/29', '2004/1/2', N'590 Columbia Boulevard West', N'Lethbridge', N'AB', N'Canada', N'T1K 5N8', N'+1 (403) 456-9986', N'+1 (403) 456-8485', N'robert@chinookcorp.com'),
+    (8, N'Callahan', N'Laura', N'IT Staff', 6, '1968/1/9', '2004/3/4', N'923 7 ST NW', N'Lethbridge', N'AB', N'Canada', N'T1H 1Y8', N'+1 (403) 467-3351', N'+1 (403) 467-8772', N'laura@chinookcorp.com');
 
-INSERT INTO "Customer" ("CustomerId", "FirstName", "LastName", "Company", "Address", "City", "State", "Country", "PostalCode", "Phone", "Fax", "Email", "SupportRepId") VALUES
+INSERT INTO `Customer` (`CustomerId`, `FirstName`, `LastName`, `Company`, `Address`, `City`, `State`, `Country`, `PostalCode`, `Phone`, `Fax`, `Email`, `SupportRepId`) VALUES
     (1, N'Luís', N'Gonçalves', N'Embraer - Empresa Brasileira de Aeronáutica S.A.', N'Av. Brigadeiro Faria Lima, 2170', N'São José dos Campos', N'SP', N'Brazil', N'12227-000', N'+55 (12) 3923-5555', N'+55 (12) 3923-5566', N'luisg@embraer.com.br', 3),
     (2, N'Leonie', N'Köhler', NULL, N'Theodor-Heuss-Straße 34', N'Stuttgart', NULL, N'Germany', N'70174', N'+49 0711 2842222', NULL, N'leonekohler@surfeu.de', 5),
     (3, N'François', N'Tremblay', NULL, N'1498 rue Bélanger', N'Montréal', N'QC', N'Canada', N'H2G 1A7', N'+1 (514) 721-4711', NULL, N'ftremblay@gmail.com', 3),
@@ -4447,421 +4461,421 @@ INSERT INTO "Customer" ("CustomerId", "FirstName", "LastName", "Company", "Addre
     (58, N'Manoj', N'Pareek', NULL, N'12,Community Centre', N'Delhi', NULL, N'India', N'110017', N'+91 0124 39883988', NULL, N'manoj.pareek@rediff.com', 3),
     (59, N'Puja', N'Srivastava', NULL, N'3,Raj Bhavan Road', N'Bangalore', NULL, N'India', N'560001', N'+91 080 22289999', NULL, N'puja_srivastava@yahoo.in', 3);
 
-INSERT INTO "Invoice" ("InvoiceId", "CustomerId", "InvoiceDate", "BillingAddress", "BillingCity", "BillingState", "BillingCountry", "BillingPostalCode", "Total") VALUES
-    (1, 2, '2021-01-01 00:00:00', N'Theodor-Heuss-Straße 34', N'Stuttgart', NULL, N'Germany', N'70174', 1.98),
-    (2, 4, '2021-01-02 00:00:00', N'Ullevålsveien 14', N'Oslo', NULL, N'Norway', N'0171', 3.96),
-    (3, 8, '2021-01-03 00:00:00', N'Grétrystraat 63', N'Brussels', NULL, N'Belgium', N'1000', 5.94),
-    (4, 14, '2021-01-06 00:00:00', N'8210 111 ST NW', N'Edmonton', N'AB', N'Canada', N'T6G 2C7', 8.91),
-    (5, 23, '2021-01-11 00:00:00', N'69 Salem Street', N'Boston', N'MA', N'USA', N'2113', 13.86),
-    (6, 37, '2021-01-19 00:00:00', N'Berger Straße 10', N'Frankfurt', NULL, N'Germany', N'60316', 0.99),
-    (7, 38, '2021-02-01 00:00:00', N'Barbarossastraße 19', N'Berlin', NULL, N'Germany', N'10779', 1.98),
-    (8, 40, '2021-02-01 00:00:00', N'8, Rue Hanovre', N'Paris', NULL, N'France', N'75002', 1.98),
-    (9, 42, '2021-02-02 00:00:00', N'9, Place Louis Barthou', N'Bordeaux', NULL, N'France', N'33000', 3.96),
-    (10, 46, '2021-02-03 00:00:00', N'3 Chatham Street', N'Dublin', N'Dublin', N'Ireland', NULL, 5.94),
-    (11, 52, '2021-02-06 00:00:00', N'202 Hoxton Street', N'London', NULL, N'United Kingdom', N'N1 5LH', 8.91),
-    (12, 2, '2021-02-11 00:00:00', N'Theodor-Heuss-Straße 34', N'Stuttgart', NULL, N'Germany', N'70174', 13.86),
-    (13, 16, '2021-02-19 00:00:00', N'1600 Amphitheatre Parkway', N'Mountain View', N'CA', N'USA', N'94043-1351', 0.99),
-    (14, 17, '2021-03-04 00:00:00', N'1 Microsoft Way', N'Redmond', N'WA', N'USA', N'98052-8300', 1.98),
-    (15, 19, '2021-03-04 00:00:00', N'1 Infinite Loop', N'Cupertino', N'CA', N'USA', N'95014', 1.98),
-    (16, 21, '2021-03-05 00:00:00', N'801 W 4th Street', N'Reno', N'NV', N'USA', N'89503', 3.96),
-    (17, 25, '2021-03-06 00:00:00', N'319 N. Frances Street', N'Madison', N'WI', N'USA', N'53703', 5.94),
-    (18, 31, '2021-03-09 00:00:00', N'194A Chain Lake Drive', N'Halifax', N'NS', N'Canada', N'B3S 1C5', 8.91),
-    (19, 40, '2021-03-14 00:00:00', N'8, Rue Hanovre', N'Paris', NULL, N'France', N'75002', 13.86),
-    (20, 54, '2021-03-22 00:00:00', N'110 Raeburn Pl', N'Edinburgh ', NULL, N'United Kingdom', N'EH4 1HH', 0.99),
-    (21, 55, '2021-04-04 00:00:00', N'421 Bourke Street', N'Sidney', N'NSW', N'Australia', N'2010', 1.98),
-    (22, 57, '2021-04-04 00:00:00', N'Calle Lira, 198', N'Santiago', NULL, N'Chile', NULL, 1.98),
-    (23, 59, '2021-04-05 00:00:00', N'3,Raj Bhavan Road', N'Bangalore', NULL, N'India', N'560001', 3.96),
-    (24, 4, '2021-04-06 00:00:00', N'Ullevålsveien 14', N'Oslo', NULL, N'Norway', N'0171', 5.94),
-    (25, 10, '2021-04-09 00:00:00', N'Rua Dr. Falcão Filho, 155', N'São Paulo', N'SP', N'Brazil', N'01007-010', 8.91),
-    (26, 19, '2021-04-14 00:00:00', N'1 Infinite Loop', N'Cupertino', N'CA', N'USA', N'95014', 13.86),
-    (27, 33, '2021-04-22 00:00:00', N'5112 48 Street', N'Yellowknife', N'NT', N'Canada', N'X1A 1N6', 0.99),
-    (28, 34, '2021-05-05 00:00:00', N'Rua da Assunção 53', N'Lisbon', NULL, N'Portugal', NULL, 1.98),
-    (29, 36, '2021-05-05 00:00:00', N'Tauentzienstraße 8', N'Berlin', NULL, N'Germany', N'10789', 1.98),
-    (30, 38, '2021-05-06 00:00:00', N'Barbarossastraße 19', N'Berlin', NULL, N'Germany', N'10779', 3.96),
-    (31, 42, '2021-05-07 00:00:00', N'9, Place Louis Barthou', N'Bordeaux', NULL, N'France', N'33000', 5.94),
-    (32, 48, '2021-05-10 00:00:00', N'Lijnbaansgracht 120bg', N'Amsterdam', N'VV', N'Netherlands', N'1016', 8.91),
-    (33, 57, '2021-05-15 00:00:00', N'Calle Lira, 198', N'Santiago', NULL, N'Chile', NULL, 13.86),
-    (34, 12, '2021-05-23 00:00:00', N'Praça Pio X, 119', N'Rio de Janeiro', N'RJ', N'Brazil', N'20040-020', 0.99),
-    (35, 13, '2021-06-05 00:00:00', N'Qe 7 Bloco G', N'Brasília', N'DF', N'Brazil', N'71020-677', 1.98),
-    (36, 15, '2021-06-05 00:00:00', N'700 W Pender Street', N'Vancouver', N'BC', N'Canada', N'V6C 1G8', 1.98),
-    (37, 17, '2021-06-06 00:00:00', N'1 Microsoft Way', N'Redmond', N'WA', N'USA', N'98052-8300', 3.96),
-    (38, 21, '2021-06-07 00:00:00', N'801 W 4th Street', N'Reno', N'NV', N'USA', N'89503', 5.94),
-    (39, 27, '2021-06-10 00:00:00', N'1033 N Park Ave', N'Tucson', N'AZ', N'USA', N'85719', 8.91),
-    (40, 36, '2021-06-15 00:00:00', N'Tauentzienstraße 8', N'Berlin', NULL, N'Germany', N'10789', 13.86),
-    (41, 50, '2021-06-23 00:00:00', N'C/ San Bernardo 85', N'Madrid', NULL, N'Spain', N'28015', 0.99),
-    (42, 51, '2021-07-06 00:00:00', N'Celsiusg. 9', N'Stockholm', NULL, N'Sweden', N'11230', 1.98),
-    (43, 53, '2021-07-06 00:00:00', N'113 Lupus St', N'London', NULL, N'United Kingdom', N'SW1V 3EN', 1.98),
-    (44, 55, '2021-07-07 00:00:00', N'421 Bourke Street', N'Sidney', N'NSW', N'Australia', N'2010', 3.96),
-    (45, 59, '2021-07-08 00:00:00', N'3,Raj Bhavan Road', N'Bangalore', NULL, N'India', N'560001', 5.94),
-    (46, 6, '2021-07-11 00:00:00', N'Rilská 3174/6', N'Prague', NULL, N'Czech Republic', N'14300', 8.91),
-    (47, 15, '2021-07-16 00:00:00', N'700 W Pender Street', N'Vancouver', N'BC', N'Canada', N'V6C 1G8', 13.86),
-    (48, 29, '2021-07-24 00:00:00', N'796 Dundas Street West', N'Toronto', N'ON', N'Canada', N'M6J 1V1', 0.99),
-    (49, 30, '2021-08-06 00:00:00', N'230 Elgin Street', N'Ottawa', N'ON', N'Canada', N'K2P 1L7', 1.98),
-    (50, 32, '2021-08-06 00:00:00', N'696 Osborne Street', N'Winnipeg', N'MB', N'Canada', N'R3L 2B9', 1.98),
-    (51, 34, '2021-08-07 00:00:00', N'Rua da Assunção 53', N'Lisbon', NULL, N'Portugal', NULL, 3.96),
-    (52, 38, '2021-08-08 00:00:00', N'Barbarossastraße 19', N'Berlin', NULL, N'Germany', N'10779', 5.94),
-    (53, 44, '2021-08-11 00:00:00', N'Porthaninkatu 9', N'Helsinki', NULL, N'Finland', N'00530', 8.91),
-    (54, 53, '2021-08-16 00:00:00', N'113 Lupus St', N'London', NULL, N'United Kingdom', N'SW1V 3EN', 13.86),
-    (55, 8, '2021-08-24 00:00:00', N'Grétrystraat 63', N'Brussels', NULL, N'Belgium', N'1000', 0.99),
-    (56, 9, '2021-09-06 00:00:00', N'Sønder Boulevard 51', N'Copenhagen', NULL, N'Denmark', N'1720', 1.98),
-    (57, 11, '2021-09-06 00:00:00', N'Av. Paulista, 2022', N'São Paulo', N'SP', N'Brazil', N'01310-200', 1.98),
-    (58, 13, '2021-09-07 00:00:00', N'Qe 7 Bloco G', N'Brasília', N'DF', N'Brazil', N'71020-677', 3.96),
-    (59, 17, '2021-09-08 00:00:00', N'1 Microsoft Way', N'Redmond', N'WA', N'USA', N'98052-8300', 5.94),
-    (60, 23, '2021-09-11 00:00:00', N'69 Salem Street', N'Boston', N'MA', N'USA', N'2113', 8.91),
-    (61, 32, '2021-09-16 00:00:00', N'696 Osborne Street', N'Winnipeg', N'MB', N'Canada', N'R3L 2B9', 13.86),
-    (62, 46, '2021-09-24 00:00:00', N'3 Chatham Street', N'Dublin', N'Dublin', N'Ireland', NULL, 0.99),
-    (63, 47, '2021-10-07 00:00:00', N'Via Degli Scipioni, 43', N'Rome', N'RM', N'Italy', N'00192', 1.98),
-    (64, 49, '2021-10-07 00:00:00', N'Ordynacka 10', N'Warsaw', NULL, N'Poland', N'00-358', 1.98),
-    (65, 51, '2021-10-08 00:00:00', N'Celsiusg. 9', N'Stockholm', NULL, N'Sweden', N'11230', 3.96),
-    (66, 55, '2021-10-09 00:00:00', N'421 Bourke Street', N'Sidney', N'NSW', N'Australia', N'2010', 5.94),
-    (67, 2, '2021-10-12 00:00:00', N'Theodor-Heuss-Straße 34', N'Stuttgart', NULL, N'Germany', N'70174', 8.91),
-    (68, 11, '2021-10-17 00:00:00', N'Av. Paulista, 2022', N'São Paulo', N'SP', N'Brazil', N'01310-200', 13.86),
-    (69, 25, '2021-10-25 00:00:00', N'319 N. Frances Street', N'Madison', N'WI', N'USA', N'53703', 0.99),
-    (70, 26, '2021-11-07 00:00:00', N'2211 W Berry Street', N'Fort Worth', N'TX', N'USA', N'76110', 1.98),
-    (71, 28, '2021-11-07 00:00:00', N'302 S 700 E', N'Salt Lake City', N'UT', N'USA', N'84102', 1.98),
-    (72, 30, '2021-11-08 00:00:00', N'230 Elgin Street', N'Ottawa', N'ON', N'Canada', N'K2P 1L7', 3.96),
-    (73, 34, '2021-11-09 00:00:00', N'Rua da Assunção 53', N'Lisbon', NULL, N'Portugal', NULL, 5.94),
-    (74, 40, '2021-11-12 00:00:00', N'8, Rue Hanovre', N'Paris', NULL, N'France', N'75002', 8.91),
-    (75, 49, '2021-11-17 00:00:00', N'Ordynacka 10', N'Warsaw', NULL, N'Poland', N'00-358', 13.86),
-    (76, 4, '2021-11-25 00:00:00', N'Ullevålsveien 14', N'Oslo', NULL, N'Norway', N'0171', 0.99),
-    (77, 5, '2021-12-08 00:00:00', N'Klanova 9/506', N'Prague', NULL, N'Czech Republic', N'14700', 1.98),
-    (78, 7, '2021-12-08 00:00:00', N'Rotenturmstraße 4, 1010 Innere Stadt', N'Vienne', NULL, N'Austria', N'1010', 1.98),
-    (79, 9, '2021-12-09 00:00:00', N'Sønder Boulevard 51', N'Copenhagen', NULL, N'Denmark', N'1720', 3.96),
-    (80, 13, '2021-12-10 00:00:00', N'Qe 7 Bloco G', N'Brasília', N'DF', N'Brazil', N'71020-677', 5.94),
-    (81, 19, '2021-12-13 00:00:00', N'1 Infinite Loop', N'Cupertino', N'CA', N'USA', N'95014', 8.91),
-    (82, 28, '2021-12-18 00:00:00', N'302 S 700 E', N'Salt Lake City', N'UT', N'USA', N'84102', 13.86),
-    (83, 42, '2021-12-26 00:00:00', N'9, Place Louis Barthou', N'Bordeaux', NULL, N'France', N'33000', 0.99),
-    (84, 43, '2022-01-08 00:00:00', N'68, Rue Jouvence', N'Dijon', NULL, N'France', N'21000', 1.98),
-    (85, 45, '2022-01-08 00:00:00', N'Erzsébet krt. 58.', N'Budapest', NULL, N'Hungary', N'H-1073', 1.98),
-    (86, 47, '2022-01-09 00:00:00', N'Via Degli Scipioni, 43', N'Rome', N'RM', N'Italy', N'00192', 3.96),
-    (87, 51, '2022-01-10 00:00:00', N'Celsiusg. 9', N'Stockholm', NULL, N'Sweden', N'11230', 6.94),
-    (88, 57, '2022-01-13 00:00:00', N'Calle Lira, 198', N'Santiago', NULL, N'Chile', NULL, 17.91),
-    (89, 7, '2022-01-18 00:00:00', N'Rotenturmstraße 4, 1010 Innere Stadt', N'Vienne', NULL, N'Austria', N'1010', 18.86),
-    (90, 21, '2022-01-26 00:00:00', N'801 W 4th Street', N'Reno', N'NV', N'USA', N'89503', 0.99),
-    (91, 22, '2022-02-08 00:00:00', N'120 S Orange Ave', N'Orlando', N'FL', N'USA', N'32801', 1.98),
-    (92, 24, '2022-02-08 00:00:00', N'162 E Superior Street', N'Chicago', N'IL', N'USA', N'60611', 1.98),
-    (93, 26, '2022-02-09 00:00:00', N'2211 W Berry Street', N'Fort Worth', N'TX', N'USA', N'76110', 3.96),
-    (94, 30, '2022-02-10 00:00:00', N'230 Elgin Street', N'Ottawa', N'ON', N'Canada', N'K2P 1L7', 5.94),
-    (95, 36, '2022-02-13 00:00:00', N'Tauentzienstraße 8', N'Berlin', NULL, N'Germany', N'10789', 8.91),
-    (96, 45, '2022-02-18 00:00:00', N'Erzsébet krt. 58.', N'Budapest', NULL, N'Hungary', N'H-1073', 21.86),
-    (97, 59, '2022-02-26 00:00:00', N'3,Raj Bhavan Road', N'Bangalore', NULL, N'India', N'560001', 1.99),
-    (98, 1, '2022-03-11 00:00:00', N'Av. Brigadeiro Faria Lima, 2170', N'São José dos Campos', N'SP', N'Brazil', N'12227-000', 3.98),
-    (99, 3, '2022-03-11 00:00:00', N'1498 rue Bélanger', N'Montréal', N'QC', N'Canada', N'H2G 1A7', 3.98),
-    (100, 5, '2022-03-12 00:00:00', N'Klanova 9/506', N'Prague', NULL, N'Czech Republic', N'14700', 3.96),
-    (101, 9, '2022-03-13 00:00:00', N'Sønder Boulevard 51', N'Copenhagen', NULL, N'Denmark', N'1720', 5.94),
-    (102, 15, '2022-03-16 00:00:00', N'700 W Pender Street', N'Vancouver', N'BC', N'Canada', N'V6C 1G8', 9.91),
-    (103, 24, '2022-03-21 00:00:00', N'162 E Superior Street', N'Chicago', N'IL', N'USA', N'60611', 15.86),
-    (104, 38, '2022-03-29 00:00:00', N'Barbarossastraße 19', N'Berlin', NULL, N'Germany', N'10779', 0.99),
-    (105, 39, '2022-04-11 00:00:00', N'4, Rue Milton', N'Paris', NULL, N'France', N'75009', 1.98),
-    (106, 41, '2022-04-11 00:00:00', N'11, Place Bellecour', N'Lyon', NULL, N'France', N'69002', 1.98),
-    (107, 43, '2022-04-12 00:00:00', N'68, Rue Jouvence', N'Dijon', NULL, N'France', N'21000', 3.96),
-    (108, 47, '2022-04-13 00:00:00', N'Via Degli Scipioni, 43', N'Rome', N'RM', N'Italy', N'00192', 5.94),
-    (109, 53, '2022-04-16 00:00:00', N'113 Lupus St', N'London', NULL, N'United Kingdom', N'SW1V 3EN', 8.91),
-    (110, 3, '2022-04-21 00:00:00', N'1498 rue Bélanger', N'Montréal', N'QC', N'Canada', N'H2G 1A7', 13.86),
-    (111, 17, '2022-04-29 00:00:00', N'1 Microsoft Way', N'Redmond', N'WA', N'USA', N'98052-8300', 0.99),
-    (112, 18, '2022-05-12 00:00:00', N'627 Broadway', N'New York', N'NY', N'USA', N'10012-2612', 1.98),
-    (113, 20, '2022-05-12 00:00:00', N'541 Del Medio Avenue', N'Mountain View', N'CA', N'USA', N'94040-111', 1.98),
-    (114, 22, '2022-05-13 00:00:00', N'120 S Orange Ave', N'Orlando', N'FL', N'USA', N'32801', 3.96),
-    (115, 26, '2022-05-14 00:00:00', N'2211 W Berry Street', N'Fort Worth', N'TX', N'USA', N'76110', 5.94),
-    (116, 32, '2022-05-17 00:00:00', N'696 Osborne Street', N'Winnipeg', N'MB', N'Canada', N'R3L 2B9', 8.91),
-    (117, 41, '2022-05-22 00:00:00', N'11, Place Bellecour', N'Lyon', NULL, N'France', N'69002', 13.86),
-    (118, 55, '2022-05-30 00:00:00', N'421 Bourke Street', N'Sidney', N'NSW', N'Australia', N'2010', 0.99),
-    (119, 56, '2022-06-12 00:00:00', N'307 Macacha Güemes', N'Buenos Aires', NULL, N'Argentina', N'1106', 1.98),
-    (120, 58, '2022-06-12 00:00:00', N'12,Community Centre', N'Delhi', NULL, N'India', N'110017', 1.98),
-    (121, 1, '2022-06-13 00:00:00', N'Av. Brigadeiro Faria Lima, 2170', N'São José dos Campos', N'SP', N'Brazil', N'12227-000', 3.96),
-    (122, 5, '2022-06-14 00:00:00', N'Klanova 9/506', N'Prague', NULL, N'Czech Republic', N'14700', 5.94),
-    (123, 11, '2022-06-17 00:00:00', N'Av. Paulista, 2022', N'São Paulo', N'SP', N'Brazil', N'01310-200', 8.91),
-    (124, 20, '2022-06-22 00:00:00', N'541 Del Medio Avenue', N'Mountain View', N'CA', N'USA', N'94040-111', 13.86),
-    (125, 34, '2022-06-30 00:00:00', N'Rua da Assunção 53', N'Lisbon', NULL, N'Portugal', NULL, 0.99),
-    (126, 35, '2022-07-13 00:00:00', N'Rua dos Campeões Europeus de Viena, 4350', N'Porto', NULL, N'Portugal', NULL, 1.98),
-    (127, 37, '2022-07-13 00:00:00', N'Berger Straße 10', N'Frankfurt', NULL, N'Germany', N'60316', 1.98),
-    (128, 39, '2022-07-14 00:00:00', N'4, Rue Milton', N'Paris', NULL, N'France', N'75009', 3.96),
-    (129, 43, '2022-07-15 00:00:00', N'68, Rue Jouvence', N'Dijon', NULL, N'France', N'21000', 5.94),
-    (130, 49, '2022-07-18 00:00:00', N'Ordynacka 10', N'Warsaw', NULL, N'Poland', N'00-358', 8.91),
-    (131, 58, '2022-07-23 00:00:00', N'12,Community Centre', N'Delhi', NULL, N'India', N'110017', 13.86),
-    (132, 13, '2022-07-31 00:00:00', N'Qe 7 Bloco G', N'Brasília', N'DF', N'Brazil', N'71020-677', 0.99),
-    (133, 14, '2022-08-13 00:00:00', N'8210 111 ST NW', N'Edmonton', N'AB', N'Canada', N'T6G 2C7', 1.98),
-    (134, 16, '2022-08-13 00:00:00', N'1600 Amphitheatre Parkway', N'Mountain View', N'CA', N'USA', N'94043-1351', 1.98),
-    (135, 18, '2022-08-14 00:00:00', N'627 Broadway', N'New York', N'NY', N'USA', N'10012-2612', 3.96),
-    (136, 22, '2022-08-15 00:00:00', N'120 S Orange Ave', N'Orlando', N'FL', N'USA', N'32801', 5.94),
-    (137, 28, '2022-08-18 00:00:00', N'302 S 700 E', N'Salt Lake City', N'UT', N'USA', N'84102', 8.91),
-    (138, 37, '2022-08-23 00:00:00', N'Berger Straße 10', N'Frankfurt', NULL, N'Germany', N'60316', 13.86),
-    (139, 51, '2022-08-31 00:00:00', N'Celsiusg. 9', N'Stockholm', NULL, N'Sweden', N'11230', 0.99),
-    (140, 52, '2022-09-13 00:00:00', N'202 Hoxton Street', N'London', NULL, N'United Kingdom', N'N1 5LH', 1.98),
-    (141, 54, '2022-09-13 00:00:00', N'110 Raeburn Pl', N'Edinburgh ', NULL, N'United Kingdom', N'EH4 1HH', 1.98),
-    (142, 56, '2022-09-14 00:00:00', N'307 Macacha Güemes', N'Buenos Aires', NULL, N'Argentina', N'1106', 3.96),
-    (143, 1, '2022-09-15 00:00:00', N'Av. Brigadeiro Faria Lima, 2170', N'São José dos Campos', N'SP', N'Brazil', N'12227-000', 5.94),
-    (144, 7, '2022-09-18 00:00:00', N'Rotenturmstraße 4, 1010 Innere Stadt', N'Vienne', NULL, N'Austria', N'1010', 8.91),
-    (145, 16, '2022-09-23 00:00:00', N'1600 Amphitheatre Parkway', N'Mountain View', N'CA', N'USA', N'94043-1351', 13.86),
-    (146, 30, '2022-10-01 00:00:00', N'230 Elgin Street', N'Ottawa', N'ON', N'Canada', N'K2P 1L7', 0.99),
-    (147, 31, '2022-10-14 00:00:00', N'194A Chain Lake Drive', N'Halifax', N'NS', N'Canada', N'B3S 1C5', 1.98),
-    (148, 33, '2022-10-14 00:00:00', N'5112 48 Street', N'Yellowknife', N'NT', N'Canada', N'X1A 1N6', 1.98),
-    (149, 35, '2022-10-15 00:00:00', N'Rua dos Campeões Europeus de Viena, 4350', N'Porto', NULL, N'Portugal', NULL, 3.96),
-    (150, 39, '2022-10-16 00:00:00', N'4, Rue Milton', N'Paris', NULL, N'France', N'75009', 5.94),
-    (151, 45, '2022-10-19 00:00:00', N'Erzsébet krt. 58.', N'Budapest', NULL, N'Hungary', N'H-1073', 8.91),
-    (152, 54, '2022-10-24 00:00:00', N'110 Raeburn Pl', N'Edinburgh ', NULL, N'United Kingdom', N'EH4 1HH', 13.86),
-    (153, 9, '2022-11-01 00:00:00', N'Sønder Boulevard 51', N'Copenhagen', NULL, N'Denmark', N'1720', 0.99),
-    (154, 10, '2022-11-14 00:00:00', N'Rua Dr. Falcão Filho, 155', N'São Paulo', N'SP', N'Brazil', N'01007-010', 1.98),
-    (155, 12, '2022-11-14 00:00:00', N'Praça Pio X, 119', N'Rio de Janeiro', N'RJ', N'Brazil', N'20040-020', 1.98),
-    (156, 14, '2022-11-15 00:00:00', N'8210 111 ST NW', N'Edmonton', N'AB', N'Canada', N'T6G 2C7', 3.96),
-    (157, 18, '2022-11-16 00:00:00', N'627 Broadway', N'New York', N'NY', N'USA', N'10012-2612', 5.94),
-    (158, 24, '2022-11-19 00:00:00', N'162 E Superior Street', N'Chicago', N'IL', N'USA', N'60611', 8.91),
-    (159, 33, '2022-11-24 00:00:00', N'5112 48 Street', N'Yellowknife', N'NT', N'Canada', N'X1A 1N6', 13.86),
-    (160, 47, '2022-12-02 00:00:00', N'Via Degli Scipioni, 43', N'Rome', N'RM', N'Italy', N'00192', 0.99),
-    (161, 48, '2022-12-15 00:00:00', N'Lijnbaansgracht 120bg', N'Amsterdam', N'VV', N'Netherlands', N'1016', 1.98),
-    (162, 50, '2022-12-15 00:00:00', N'C/ San Bernardo 85', N'Madrid', NULL, N'Spain', N'28015', 1.98),
-    (163, 52, '2022-12-16 00:00:00', N'202 Hoxton Street', N'London', NULL, N'United Kingdom', N'N1 5LH', 3.96),
-    (164, 56, '2022-12-17 00:00:00', N'307 Macacha Güemes', N'Buenos Aires', NULL, N'Argentina', N'1106', 5.94),
-    (165, 3, '2022-12-20 00:00:00', N'1498 rue Bélanger', N'Montréal', N'QC', N'Canada', N'H2G 1A7', 8.91),
-    (166, 12, '2022-12-25 00:00:00', N'Praça Pio X, 119', N'Rio de Janeiro', N'RJ', N'Brazil', N'20040-020', 13.86),
-    (167, 26, '2023-01-02 00:00:00', N'2211 W Berry Street', N'Fort Worth', N'TX', N'USA', N'76110', 0.99),
-    (168, 27, '2023-01-15 00:00:00', N'1033 N Park Ave', N'Tucson', N'AZ', N'USA', N'85719', 1.98),
-    (169, 29, '2023-01-15 00:00:00', N'796 Dundas Street West', N'Toronto', N'ON', N'Canada', N'M6J 1V1', 1.98),
-    (170, 31, '2023-01-16 00:00:00', N'194A Chain Lake Drive', N'Halifax', N'NS', N'Canada', N'B3S 1C5', 3.96),
-    (171, 35, '2023-01-17 00:00:00', N'Rua dos Campeões Europeus de Viena, 4350', N'Porto', NULL, N'Portugal', NULL, 5.94),
-    (172, 41, '2023-01-20 00:00:00', N'11, Place Bellecour', N'Lyon', NULL, N'France', N'69002', 8.91),
-    (173, 50, '2023-01-25 00:00:00', N'C/ San Bernardo 85', N'Madrid', NULL, N'Spain', N'28015', 13.86),
-    (174, 5, '2023-02-02 00:00:00', N'Klanova 9/506', N'Prague', NULL, N'Czech Republic', N'14700', 0.99),
-    (175, 6, '2023-02-15 00:00:00', N'Rilská 3174/6', N'Prague', NULL, N'Czech Republic', N'14300', 1.98),
-    (176, 8, '2023-02-15 00:00:00', N'Grétrystraat 63', N'Brussels', NULL, N'Belgium', N'1000', 1.98),
-    (177, 10, '2023-02-16 00:00:00', N'Rua Dr. Falcão Filho, 155', N'São Paulo', N'SP', N'Brazil', N'01007-010', 3.96),
-    (178, 14, '2023-02-17 00:00:00', N'8210 111 ST NW', N'Edmonton', N'AB', N'Canada', N'T6G 2C7', 5.94),
-    (179, 20, '2023-02-20 00:00:00', N'541 Del Medio Avenue', N'Mountain View', N'CA', N'USA', N'94040-111', 8.91),
-    (180, 29, '2023-02-25 00:00:00', N'796 Dundas Street West', N'Toronto', N'ON', N'Canada', N'M6J 1V1', 13.86),
-    (181, 43, '2023-03-05 00:00:00', N'68, Rue Jouvence', N'Dijon', NULL, N'France', N'21000', 0.99),
-    (182, 44, '2023-03-18 00:00:00', N'Porthaninkatu 9', N'Helsinki', NULL, N'Finland', N'00530', 1.98),
-    (183, 46, '2023-03-18 00:00:00', N'3 Chatham Street', N'Dublin', N'Dublin', N'Ireland', NULL, 1.98),
-    (184, 48, '2023-03-19 00:00:00', N'Lijnbaansgracht 120bg', N'Amsterdam', N'VV', N'Netherlands', N'1016', 3.96),
-    (185, 52, '2023-03-20 00:00:00', N'202 Hoxton Street', N'London', NULL, N'United Kingdom', N'N1 5LH', 5.94),
-    (186, 58, '2023-03-23 00:00:00', N'12,Community Centre', N'Delhi', NULL, N'India', N'110017', 8.91),
-    (187, 8, '2023-03-28 00:00:00', N'Grétrystraat 63', N'Brussels', NULL, N'Belgium', N'1000', 13.86),
-    (188, 22, '2023-04-05 00:00:00', N'120 S Orange Ave', N'Orlando', N'FL', N'USA', N'32801', 0.99),
-    (189, 23, '2023-04-18 00:00:00', N'69 Salem Street', N'Boston', N'MA', N'USA', N'2113', 1.98),
-    (190, 25, '2023-04-18 00:00:00', N'319 N. Frances Street', N'Madison', N'WI', N'USA', N'53703', 1.98),
-    (191, 27, '2023-04-19 00:00:00', N'1033 N Park Ave', N'Tucson', N'AZ', N'USA', N'85719', 3.96),
-    (192, 31, '2023-04-20 00:00:00', N'194A Chain Lake Drive', N'Halifax', N'NS', N'Canada', N'B3S 1C5', 5.94),
-    (193, 37, '2023-04-23 00:00:00', N'Berger Straße 10', N'Frankfurt', NULL, N'Germany', N'60316', 14.91),
-    (194, 46, '2023-04-28 00:00:00', N'3 Chatham Street', N'Dublin', N'Dublin', N'Ireland', NULL, 21.86),
-    (195, 1, '2023-05-06 00:00:00', N'Av. Brigadeiro Faria Lima, 2170', N'São José dos Campos', N'SP', N'Brazil', N'12227-000', 0.99),
-    (196, 2, '2023-05-19 00:00:00', N'Theodor-Heuss-Straße 34', N'Stuttgart', NULL, N'Germany', N'70174', 1.98),
-    (197, 4, '2023-05-19 00:00:00', N'Ullevålsveien 14', N'Oslo', NULL, N'Norway', N'0171', 1.98),
-    (198, 6, '2023-05-20 00:00:00', N'Rilská 3174/6', N'Prague', NULL, N'Czech Republic', N'14300', 3.96),
-    (199, 10, '2023-05-21 00:00:00', N'Rua Dr. Falcão Filho, 155', N'São Paulo', N'SP', N'Brazil', N'01007-010', 5.94),
-    (200, 16, '2023-05-24 00:00:00', N'1600 Amphitheatre Parkway', N'Mountain View', N'CA', N'USA', N'94043-1351', 8.91),
-    (201, 25, '2023-05-29 00:00:00', N'319 N. Frances Street', N'Madison', N'WI', N'USA', N'53703', 18.86),
-    (202, 39, '2023-06-06 00:00:00', N'4, Rue Milton', N'Paris', NULL, N'France', N'75009', 1.99),
-    (203, 40, '2023-06-19 00:00:00', N'8, Rue Hanovre', N'Paris', NULL, N'France', N'75002', 2.98),
-    (204, 42, '2023-06-19 00:00:00', N'9, Place Louis Barthou', N'Bordeaux', NULL, N'France', N'33000', 3.98),
-    (205, 44, '2023-06-20 00:00:00', N'Porthaninkatu 9', N'Helsinki', NULL, N'Finland', N'00530', 7.96),
-    (206, 48, '2023-06-21 00:00:00', N'Lijnbaansgracht 120bg', N'Amsterdam', N'VV', N'Netherlands', N'1016', 8.94),
-    (207, 54, '2023-06-24 00:00:00', N'110 Raeburn Pl', N'Edinburgh ', NULL, N'United Kingdom', N'EH4 1HH', 8.91),
-    (208, 4, '2023-06-29 00:00:00', N'Ullevålsveien 14', N'Oslo', NULL, N'Norway', N'0171', 15.86),
-    (209, 18, '2023-07-07 00:00:00', N'627 Broadway', N'New York', N'NY', N'USA', N'10012-2612', 0.99),
-    (210, 19, '2023-07-20 00:00:00', N'1 Infinite Loop', N'Cupertino', N'CA', N'USA', N'95014', 1.98),
-    (211, 21, '2023-07-20 00:00:00', N'801 W 4th Street', N'Reno', N'NV', N'USA', N'89503', 1.98),
-    (212, 23, '2023-07-21 00:00:00', N'69 Salem Street', N'Boston', N'MA', N'USA', N'2113', 3.96),
-    (213, 27, '2023-07-22 00:00:00', N'1033 N Park Ave', N'Tucson', N'AZ', N'USA', N'85719', 5.94),
-    (214, 33, '2023-07-25 00:00:00', N'5112 48 Street', N'Yellowknife', N'NT', N'Canada', N'X1A 1N6', 8.91),
-    (215, 42, '2023-07-30 00:00:00', N'9, Place Louis Barthou', N'Bordeaux', NULL, N'France', N'33000', 13.86),
-    (216, 56, '2023-08-07 00:00:00', N'307 Macacha Güemes', N'Buenos Aires', NULL, N'Argentina', N'1106', 0.99),
-    (217, 57, '2023-08-20 00:00:00', N'Calle Lira, 198', N'Santiago', NULL, N'Chile', NULL, 1.98),
-    (218, 59, '2023-08-20 00:00:00', N'3,Raj Bhavan Road', N'Bangalore', NULL, N'India', N'560001', 1.98),
-    (219, 2, '2023-08-21 00:00:00', N'Theodor-Heuss-Straße 34', N'Stuttgart', NULL, N'Germany', N'70174', 3.96),
-    (220, 6, '2023-08-22 00:00:00', N'Rilská 3174/6', N'Prague', NULL, N'Czech Republic', N'14300', 5.94),
-    (221, 12, '2023-08-25 00:00:00', N'Praça Pio X, 119', N'Rio de Janeiro', N'RJ', N'Brazil', N'20040-020', 8.91),
-    (222, 21, '2023-08-30 00:00:00', N'801 W 4th Street', N'Reno', N'NV', N'USA', N'89503', 13.86),
-    (223, 35, '2023-09-07 00:00:00', N'Rua dos Campeões Europeus de Viena, 4350', N'Porto', NULL, N'Portugal', NULL, 0.99),
-    (224, 36, '2023-09-20 00:00:00', N'Tauentzienstraße 8', N'Berlin', NULL, N'Germany', N'10789', 1.98),
-    (225, 38, '2023-09-20 00:00:00', N'Barbarossastraße 19', N'Berlin', NULL, N'Germany', N'10779', 1.98),
-    (226, 40, '2023-09-21 00:00:00', N'8, Rue Hanovre', N'Paris', NULL, N'France', N'75002', 3.96),
-    (227, 44, '2023-09-22 00:00:00', N'Porthaninkatu 9', N'Helsinki', NULL, N'Finland', N'00530', 5.94),
-    (228, 50, '2023-09-25 00:00:00', N'C/ San Bernardo 85', N'Madrid', NULL, N'Spain', N'28015', 8.91),
-    (229, 59, '2023-09-30 00:00:00', N'3,Raj Bhavan Road', N'Bangalore', NULL, N'India', N'560001', 13.86),
-    (230, 14, '2023-10-08 00:00:00', N'8210 111 ST NW', N'Edmonton', N'AB', N'Canada', N'T6G 2C7', 0.99),
-    (231, 15, '2023-10-21 00:00:00', N'700 W Pender Street', N'Vancouver', N'BC', N'Canada', N'V6C 1G8', 1.98),
-    (232, 17, '2023-10-21 00:00:00', N'1 Microsoft Way', N'Redmond', N'WA', N'USA', N'98052-8300', 1.98),
-    (233, 19, '2023-10-22 00:00:00', N'1 Infinite Loop', N'Cupertino', N'CA', N'USA', N'95014', 3.96),
-    (234, 23, '2023-10-23 00:00:00', N'69 Salem Street', N'Boston', N'MA', N'USA', N'2113', 5.94),
-    (235, 29, '2023-10-26 00:00:00', N'796 Dundas Street West', N'Toronto', N'ON', N'Canada', N'M6J 1V1', 8.91),
-    (236, 38, '2023-10-31 00:00:00', N'Barbarossastraße 19', N'Berlin', NULL, N'Germany', N'10779', 13.86),
-    (237, 52, '2023-11-08 00:00:00', N'202 Hoxton Street', N'London', NULL, N'United Kingdom', N'N1 5LH', 0.99),
-    (238, 53, '2023-11-21 00:00:00', N'113 Lupus St', N'London', NULL, N'United Kingdom', N'SW1V 3EN', 1.98),
-    (239, 55, '2023-11-21 00:00:00', N'421 Bourke Street', N'Sidney', N'NSW', N'Australia', N'2010', 1.98),
-    (240, 57, '2023-11-22 00:00:00', N'Calle Lira, 198', N'Santiago', NULL, N'Chile', NULL, 3.96),
-    (241, 2, '2023-11-23 00:00:00', N'Theodor-Heuss-Straße 34', N'Stuttgart', NULL, N'Germany', N'70174', 5.94),
-    (242, 8, '2023-11-26 00:00:00', N'Grétrystraat 63', N'Brussels', NULL, N'Belgium', N'1000', 8.91),
-    (243, 17, '2023-12-01 00:00:00', N'1 Microsoft Way', N'Redmond', N'WA', N'USA', N'98052-8300', 13.86),
-    (244, 31, '2023-12-09 00:00:00', N'194A Chain Lake Drive', N'Halifax', N'NS', N'Canada', N'B3S 1C5', 0.99),
-    (245, 32, '2023-12-22 00:00:00', N'696 Osborne Street', N'Winnipeg', N'MB', N'Canada', N'R3L 2B9', 1.98),
-    (246, 34, '2023-12-22 00:00:00', N'Rua da Assunção 53', N'Lisbon', NULL, N'Portugal', NULL, 1.98),
-    (247, 36, '2023-12-23 00:00:00', N'Tauentzienstraße 8', N'Berlin', NULL, N'Germany', N'10789', 3.96),
-    (248, 40, '2023-12-24 00:00:00', N'8, Rue Hanovre', N'Paris', NULL, N'France', N'75002', 5.94),
-    (249, 46, '2023-12-27 00:00:00', N'3 Chatham Street', N'Dublin', N'Dublin', N'Ireland', NULL, 8.91),
-    (250, 55, '2024-01-01 00:00:00', N'421 Bourke Street', N'Sidney', N'NSW', N'Australia', N'2010', 13.86),
-    (251, 10, '2024-01-09 00:00:00', N'Rua Dr. Falcão Filho, 155', N'São Paulo', N'SP', N'Brazil', N'01007-010', 0.99),
-    (252, 11, '2024-01-22 00:00:00', N'Av. Paulista, 2022', N'São Paulo', N'SP', N'Brazil', N'01310-200', 1.98),
-    (253, 13, '2024-01-22 00:00:00', N'Qe 7 Bloco G', N'Brasília', N'DF', N'Brazil', N'71020-677', 1.98),
-    (254, 15, '2024-01-23 00:00:00', N'700 W Pender Street', N'Vancouver', N'BC', N'Canada', N'V6C 1G8', 3.96),
-    (255, 19, '2024-01-24 00:00:00', N'1 Infinite Loop', N'Cupertino', N'CA', N'USA', N'95014', 5.94),
-    (256, 25, '2024-01-27 00:00:00', N'319 N. Frances Street', N'Madison', N'WI', N'USA', N'53703', 8.91),
-    (257, 34, '2024-02-01 00:00:00', N'Rua da Assunção 53', N'Lisbon', NULL, N'Portugal', NULL, 13.86),
-    (258, 48, '2024-02-09 00:00:00', N'Lijnbaansgracht 120bg', N'Amsterdam', N'VV', N'Netherlands', N'1016', 0.99),
-    (259, 49, '2024-02-22 00:00:00', N'Ordynacka 10', N'Warsaw', NULL, N'Poland', N'00-358', 1.98),
-    (260, 51, '2024-02-22 00:00:00', N'Celsiusg. 9', N'Stockholm', NULL, N'Sweden', N'11230', 1.98),
-    (261, 53, '2024-02-23 00:00:00', N'113 Lupus St', N'London', NULL, N'United Kingdom', N'SW1V 3EN', 3.96),
-    (262, 57, '2024-02-24 00:00:00', N'Calle Lira, 198', N'Santiago', NULL, N'Chile', NULL, 5.94),
-    (263, 4, '2024-02-27 00:00:00', N'Ullevålsveien 14', N'Oslo', NULL, N'Norway', N'0171', 8.91),
-    (264, 13, '2024-03-03 00:00:00', N'Qe 7 Bloco G', N'Brasília', N'DF', N'Brazil', N'71020-677', 13.86),
-    (265, 27, '2024-03-11 00:00:00', N'1033 N Park Ave', N'Tucson', N'AZ', N'USA', N'85719', 0.99),
-    (266, 28, '2024-03-24 00:00:00', N'302 S 700 E', N'Salt Lake City', N'UT', N'USA', N'84102', 1.98),
-    (267, 30, '2024-03-24 00:00:00', N'230 Elgin Street', N'Ottawa', N'ON', N'Canada', N'K2P 1L7', 1.98),
-    (268, 32, '2024-03-25 00:00:00', N'696 Osborne Street', N'Winnipeg', N'MB', N'Canada', N'R3L 2B9', 3.96),
-    (269, 36, '2024-03-26 00:00:00', N'Tauentzienstraße 8', N'Berlin', NULL, N'Germany', N'10789', 5.94),
-    (270, 42, '2024-03-29 00:00:00', N'9, Place Louis Barthou', N'Bordeaux', NULL, N'France', N'33000', 8.91),
-    (271, 51, '2024-04-03 00:00:00', N'Celsiusg. 9', N'Stockholm', NULL, N'Sweden', N'11230', 13.86),
-    (272, 6, '2024-04-11 00:00:00', N'Rilská 3174/6', N'Prague', NULL, N'Czech Republic', N'14300', 0.99),
-    (273, 7, '2024-04-24 00:00:00', N'Rotenturmstraße 4, 1010 Innere Stadt', N'Vienne', NULL, N'Austria', N'1010', 1.98),
-    (274, 9, '2024-04-24 00:00:00', N'Sønder Boulevard 51', N'Copenhagen', NULL, N'Denmark', N'1720', 1.98),
-    (275, 11, '2024-04-25 00:00:00', N'Av. Paulista, 2022', N'São Paulo', N'SP', N'Brazil', N'01310-200', 3.96),
-    (276, 15, '2024-04-26 00:00:00', N'700 W Pender Street', N'Vancouver', N'BC', N'Canada', N'V6C 1G8', 5.94),
-    (277, 21, '2024-04-29 00:00:00', N'801 W 4th Street', N'Reno', N'NV', N'USA', N'89503', 8.91),
-    (278, 30, '2024-05-04 00:00:00', N'230 Elgin Street', N'Ottawa', N'ON', N'Canada', N'K2P 1L7', 13.86),
-    (279, 44, '2024-05-12 00:00:00', N'Porthaninkatu 9', N'Helsinki', NULL, N'Finland', N'00530', 0.99),
-    (280, 45, '2024-05-25 00:00:00', N'Erzsébet krt. 58.', N'Budapest', NULL, N'Hungary', N'H-1073', 1.98),
-    (281, 47, '2024-05-25 00:00:00', N'Via Degli Scipioni, 43', N'Rome', N'RM', N'Italy', N'00192', 1.98),
-    (282, 49, '2024-05-26 00:00:00', N'Ordynacka 10', N'Warsaw', NULL, N'Poland', N'00-358', 3.96),
-    (283, 53, '2024-05-27 00:00:00', N'113 Lupus St', N'London', NULL, N'United Kingdom', N'SW1V 3EN', 5.94),
-    (284, 59, '2024-05-30 00:00:00', N'3,Raj Bhavan Road', N'Bangalore', NULL, N'India', N'560001', 8.91),
-    (285, 9, '2024-06-04 00:00:00', N'Sønder Boulevard 51', N'Copenhagen', NULL, N'Denmark', N'1720', 13.86),
-    (286, 23, '2024-06-12 00:00:00', N'69 Salem Street', N'Boston', N'MA', N'USA', N'2113', 0.99),
-    (287, 24, '2024-06-25 00:00:00', N'162 E Superior Street', N'Chicago', N'IL', N'USA', N'60611', 1.98),
-    (288, 26, '2024-06-25 00:00:00', N'2211 W Berry Street', N'Fort Worth', N'TX', N'USA', N'76110', 1.98),
-    (289, 28, '2024-06-26 00:00:00', N'302 S 700 E', N'Salt Lake City', N'UT', N'USA', N'84102', 3.96),
-    (290, 32, '2024-06-27 00:00:00', N'696 Osborne Street', N'Winnipeg', N'MB', N'Canada', N'R3L 2B9', 5.94),
-    (291, 38, '2024-06-30 00:00:00', N'Barbarossastraße 19', N'Berlin', NULL, N'Germany', N'10779', 8.91),
-    (292, 47, '2024-07-05 00:00:00', N'Via Degli Scipioni, 43', N'Rome', N'RM', N'Italy', N'00192', 13.86),
-    (293, 2, '2024-07-13 00:00:00', N'Theodor-Heuss-Straße 34', N'Stuttgart', NULL, N'Germany', N'70174', 0.99),
-    (294, 3, '2024-07-26 00:00:00', N'1498 rue Bélanger', N'Montréal', N'QC', N'Canada', N'H2G 1A7', 1.98),
-    (295, 5, '2024-07-26 00:00:00', N'Klanova 9/506', N'Prague', NULL, N'Czech Republic', N'14700', 1.98),
-    (296, 7, '2024-07-27 00:00:00', N'Rotenturmstraße 4, 1010 Innere Stadt', N'Vienne', NULL, N'Austria', N'1010', 3.96),
-    (297, 11, '2024-07-28 00:00:00', N'Av. Paulista, 2022', N'São Paulo', N'SP', N'Brazil', N'01310-200', 5.94),
-    (298, 17, '2024-07-31 00:00:00', N'1 Microsoft Way', N'Redmond', N'WA', N'USA', N'98052-8300', 10.91),
-    (299, 26, '2024-08-05 00:00:00', N'2211 W Berry Street', N'Fort Worth', N'TX', N'USA', N'76110', 23.86),
-    (300, 40, '2024-08-13 00:00:00', N'8, Rue Hanovre', N'Paris', NULL, N'France', N'75002', 0.99),
-    (301, 41, '2024-08-26 00:00:00', N'11, Place Bellecour', N'Lyon', NULL, N'France', N'69002', 1.98),
-    (302, 43, '2024-08-26 00:00:00', N'68, Rue Jouvence', N'Dijon', NULL, N'France', N'21000', 1.98),
-    (303, 45, '2024-08-27 00:00:00', N'Erzsébet krt. 58.', N'Budapest', NULL, N'Hungary', N'H-1073', 3.96),
-    (304, 49, '2024-08-28 00:00:00', N'Ordynacka 10', N'Warsaw', NULL, N'Poland', N'00-358', 5.94),
-    (305, 55, '2024-08-31 00:00:00', N'421 Bourke Street', N'Sidney', N'NSW', N'Australia', N'2010', 8.91),
-    (306, 5, '2024-09-05 00:00:00', N'Klanova 9/506', N'Prague', NULL, N'Czech Republic', N'14700', 16.86),
-    (307, 19, '2024-09-13 00:00:00', N'1 Infinite Loop', N'Cupertino', N'CA', N'USA', N'95014', 1.99),
-    (308, 20, '2024-09-26 00:00:00', N'541 Del Medio Avenue', N'Mountain View', N'CA', N'USA', N'94040-111', 3.98),
-    (309, 22, '2024-09-26 00:00:00', N'120 S Orange Ave', N'Orlando', N'FL', N'USA', N'32801', 3.98),
-    (310, 24, '2024-09-27 00:00:00', N'162 E Superior Street', N'Chicago', N'IL', N'USA', N'60611', 7.96),
-    (311, 28, '2024-09-28 00:00:00', N'302 S 700 E', N'Salt Lake City', N'UT', N'USA', N'84102', 11.94),
-    (312, 34, '2024-10-01 00:00:00', N'Rua da Assunção 53', N'Lisbon', NULL, N'Portugal', NULL, 10.91),
-    (313, 43, '2024-10-06 00:00:00', N'68, Rue Jouvence', N'Dijon', NULL, N'France', N'21000', 16.86),
-    (314, 57, '2024-10-14 00:00:00', N'Calle Lira, 198', N'Santiago', NULL, N'Chile', NULL, 0.99),
-    (315, 58, '2024-10-27 00:00:00', N'12,Community Centre', N'Delhi', NULL, N'India', N'110017', 1.98),
-    (316, 1, '2024-10-27 00:00:00', N'Av. Brigadeiro Faria Lima, 2170', N'São José dos Campos', N'SP', N'Brazil', N'12227-000', 1.98),
-    (317, 3, '2024-10-28 00:00:00', N'1498 rue Bélanger', N'Montréal', N'QC', N'Canada', N'H2G 1A7', 3.96),
-    (318, 7, '2024-10-29 00:00:00', N'Rotenturmstraße 4, 1010 Innere Stadt', N'Vienne', NULL, N'Austria', N'1010', 5.94),
-    (319, 13, '2024-11-01 00:00:00', N'Qe 7 Bloco G', N'Brasília', N'DF', N'Brazil', N'71020-677', 8.91),
-    (320, 22, '2024-11-06 00:00:00', N'120 S Orange Ave', N'Orlando', N'FL', N'USA', N'32801', 13.86),
-    (321, 36, '2024-11-14 00:00:00', N'Tauentzienstraße 8', N'Berlin', NULL, N'Germany', N'10789', 0.99),
-    (322, 37, '2024-11-27 00:00:00', N'Berger Straße 10', N'Frankfurt', NULL, N'Germany', N'60316', 1.98),
-    (323, 39, '2024-11-27 00:00:00', N'4, Rue Milton', N'Paris', NULL, N'France', N'75009', 1.98),
-    (324, 41, '2024-11-28 00:00:00', N'11, Place Bellecour', N'Lyon', NULL, N'France', N'69002', 3.96),
-    (325, 45, '2024-11-29 00:00:00', N'Erzsébet krt. 58.', N'Budapest', NULL, N'Hungary', N'H-1073', 5.94),
-    (326, 51, '2024-12-02 00:00:00', N'Celsiusg. 9', N'Stockholm', NULL, N'Sweden', N'11230', 8.91),
-    (327, 1, '2024-12-07 00:00:00', N'Av. Brigadeiro Faria Lima, 2170', N'São José dos Campos', N'SP', N'Brazil', N'12227-000', 13.86),
-    (328, 15, '2024-12-15 00:00:00', N'700 W Pender Street', N'Vancouver', N'BC', N'Canada', N'V6C 1G8', 0.99),
-    (329, 16, '2024-12-28 00:00:00', N'1600 Amphitheatre Parkway', N'Mountain View', N'CA', N'USA', N'94043-1351', 1.98),
-    (330, 18, '2024-12-28 00:00:00', N'627 Broadway', N'New York', N'NY', N'USA', N'10012-2612', 1.98),
-    (331, 20, '2024-12-29 00:00:00', N'541 Del Medio Avenue', N'Mountain View', N'CA', N'USA', N'94040-111', 3.96),
-    (332, 24, '2024-12-30 00:00:00', N'162 E Superior Street', N'Chicago', N'IL', N'USA', N'60611', 5.94),
-    (333, 30, '2025-01-02 00:00:00', N'230 Elgin Street', N'Ottawa', N'ON', N'Canada', N'K2P 1L7', 8.91),
-    (334, 39, '2025-01-07 00:00:00', N'4, Rue Milton', N'Paris', NULL, N'France', N'75009', 13.86),
-    (335, 53, '2025-01-15 00:00:00', N'113 Lupus St', N'London', NULL, N'United Kingdom', N'SW1V 3EN', 0.99),
-    (336, 54, '2025-01-28 00:00:00', N'110 Raeburn Pl', N'Edinburgh ', NULL, N'United Kingdom', N'EH4 1HH', 1.98),
-    (337, 56, '2025-01-28 00:00:00', N'307 Macacha Güemes', N'Buenos Aires', NULL, N'Argentina', N'1106', 1.98),
-    (338, 58, '2025-01-29 00:00:00', N'12,Community Centre', N'Delhi', NULL, N'India', N'110017', 3.96),
-    (339, 3, '2025-01-30 00:00:00', N'1498 rue Bélanger', N'Montréal', N'QC', N'Canada', N'H2G 1A7', 5.94),
-    (340, 9, '2025-02-02 00:00:00', N'Sønder Boulevard 51', N'Copenhagen', NULL, N'Denmark', N'1720', 8.91),
-    (341, 18, '2025-02-07 00:00:00', N'627 Broadway', N'New York', N'NY', N'USA', N'10012-2612', 13.86),
-    (342, 32, '2025-02-15 00:00:00', N'696 Osborne Street', N'Winnipeg', N'MB', N'Canada', N'R3L 2B9', 0.99),
-    (343, 33, '2025-02-28 00:00:00', N'5112 48 Street', N'Yellowknife', N'NT', N'Canada', N'X1A 1N6', 1.98),
-    (344, 35, '2025-02-28 00:00:00', N'Rua dos Campeões Europeus de Viena, 4350', N'Porto', NULL, N'Portugal', NULL, 1.98),
-    (345, 37, '2025-03-01 00:00:00', N'Berger Straße 10', N'Frankfurt', NULL, N'Germany', N'60316', 3.96),
-    (346, 41, '2025-03-02 00:00:00', N'11, Place Bellecour', N'Lyon', NULL, N'France', N'69002', 5.94),
-    (347, 47, '2025-03-05 00:00:00', N'Via Degli Scipioni, 43', N'Rome', N'RM', N'Italy', N'00192', 8.91),
-    (348, 56, '2025-03-10 00:00:00', N'307 Macacha Güemes', N'Buenos Aires', NULL, N'Argentina', N'1106', 13.86),
-    (349, 11, '2025-03-18 00:00:00', N'Av. Paulista, 2022', N'São Paulo', N'SP', N'Brazil', N'01310-200', 0.99),
-    (350, 12, '2025-03-31 00:00:00', N'Praça Pio X, 119', N'Rio de Janeiro', N'RJ', N'Brazil', N'20040-020', 1.98),
-    (351, 14, '2025-03-31 00:00:00', N'8210 111 ST NW', N'Edmonton', N'AB', N'Canada', N'T6G 2C7', 1.98),
-    (352, 16, '2025-04-01 00:00:00', N'1600 Amphitheatre Parkway', N'Mountain View', N'CA', N'USA', N'94043-1351', 3.96),
-    (353, 20, '2025-04-02 00:00:00', N'541 Del Medio Avenue', N'Mountain View', N'CA', N'USA', N'94040-111', 5.94),
-    (354, 26, '2025-04-05 00:00:00', N'2211 W Berry Street', N'Fort Worth', N'TX', N'USA', N'76110', 8.91),
-    (355, 35, '2025-04-10 00:00:00', N'Rua dos Campeões Europeus de Viena, 4350', N'Porto', NULL, N'Portugal', NULL, 13.86),
-    (356, 49, '2025-04-18 00:00:00', N'Ordynacka 10', N'Warsaw', NULL, N'Poland', N'00-358', 0.99),
-    (357, 50, '2025-05-01 00:00:00', N'C/ San Bernardo 85', N'Madrid', NULL, N'Spain', N'28015', 1.98),
-    (358, 52, '2025-05-01 00:00:00', N'202 Hoxton Street', N'London', NULL, N'United Kingdom', N'N1 5LH', 1.98),
-    (359, 54, '2025-05-02 00:00:00', N'110 Raeburn Pl', N'Edinburgh ', NULL, N'United Kingdom', N'EH4 1HH', 3.96),
-    (360, 58, '2025-05-03 00:00:00', N'12,Community Centre', N'Delhi', NULL, N'India', N'110017', 5.94),
-    (361, 5, '2025-05-06 00:00:00', N'Klanova 9/506', N'Prague', NULL, N'Czech Republic', N'14700', 8.91),
-    (362, 14, '2025-05-11 00:00:00', N'8210 111 ST NW', N'Edmonton', N'AB', N'Canada', N'T6G 2C7', 13.86),
-    (363, 28, '2025-05-19 00:00:00', N'302 S 700 E', N'Salt Lake City', N'UT', N'USA', N'84102', 0.99),
-    (364, 29, '2025-06-01 00:00:00', N'796 Dundas Street West', N'Toronto', N'ON', N'Canada', N'M6J 1V1', 1.98),
-    (365, 31, '2025-06-01 00:00:00', N'194A Chain Lake Drive', N'Halifax', N'NS', N'Canada', N'B3S 1C5', 1.98),
-    (366, 33, '2025-06-02 00:00:00', N'5112 48 Street', N'Yellowknife', N'NT', N'Canada', N'X1A 1N6', 3.96),
-    (367, 37, '2025-06-03 00:00:00', N'Berger Straße 10', N'Frankfurt', NULL, N'Germany', N'60316', 5.94),
-    (368, 43, '2025-06-06 00:00:00', N'68, Rue Jouvence', N'Dijon', NULL, N'France', N'21000', 8.91),
-    (369, 52, '2025-06-11 00:00:00', N'202 Hoxton Street', N'London', NULL, N'United Kingdom', N'N1 5LH', 13.86),
-    (370, 7, '2025-06-19 00:00:00', N'Rotenturmstraße 4, 1010 Innere Stadt', N'Vienne', NULL, N'Austria', N'1010', 0.99),
-    (371, 8, '2025-07-02 00:00:00', N'Grétrystraat 63', N'Brussels', NULL, N'Belgium', N'1000', 1.98),
-    (372, 10, '2025-07-02 00:00:00', N'Rua Dr. Falcão Filho, 155', N'São Paulo', N'SP', N'Brazil', N'01007-010', 1.98),
-    (373, 12, '2025-07-03 00:00:00', N'Praça Pio X, 119', N'Rio de Janeiro', N'RJ', N'Brazil', N'20040-020', 3.96),
-    (374, 16, '2025-07-04 00:00:00', N'1600 Amphitheatre Parkway', N'Mountain View', N'CA', N'USA', N'94043-1351', 5.94),
-    (375, 22, '2025-07-07 00:00:00', N'120 S Orange Ave', N'Orlando', N'FL', N'USA', N'32801', 8.91),
-    (376, 31, '2025-07-12 00:00:00', N'194A Chain Lake Drive', N'Halifax', N'NS', N'Canada', N'B3S 1C5', 13.86),
-    (377, 45, '2025-07-20 00:00:00', N'Erzsébet krt. 58.', N'Budapest', NULL, N'Hungary', N'H-1073', 0.99),
-    (378, 46, '2025-08-02 00:00:00', N'3 Chatham Street', N'Dublin', N'Dublin', N'Ireland', NULL, 1.98),
-    (379, 48, '2025-08-02 00:00:00', N'Lijnbaansgracht 120bg', N'Amsterdam', N'VV', N'Netherlands', N'1016', 1.98),
-    (380, 50, '2025-08-03 00:00:00', N'C/ San Bernardo 85', N'Madrid', NULL, N'Spain', N'28015', 3.96),
-    (381, 54, '2025-08-04 00:00:00', N'110 Raeburn Pl', N'Edinburgh ', NULL, N'United Kingdom', N'EH4 1HH', 5.94),
-    (382, 1, '2025-08-07 00:00:00', N'Av. Brigadeiro Faria Lima, 2170', N'São José dos Campos', N'SP', N'Brazil', N'12227-000', 8.91),
-    (383, 10, '2025-08-12 00:00:00', N'Rua Dr. Falcão Filho, 155', N'São Paulo', N'SP', N'Brazil', N'01007-010', 13.86),
-    (384, 24, '2025-08-20 00:00:00', N'162 E Superior Street', N'Chicago', N'IL', N'USA', N'60611', 0.99),
-    (385, 25, '2025-09-02 00:00:00', N'319 N. Frances Street', N'Madison', N'WI', N'USA', N'53703', 1.98),
-    (386, 27, '2025-09-02 00:00:00', N'1033 N Park Ave', N'Tucson', N'AZ', N'USA', N'85719', 1.98),
-    (387, 29, '2025-09-03 00:00:00', N'796 Dundas Street West', N'Toronto', N'ON', N'Canada', N'M6J 1V1', 3.96),
-    (388, 33, '2025-09-04 00:00:00', N'5112 48 Street', N'Yellowknife', N'NT', N'Canada', N'X1A 1N6', 5.94),
-    (389, 39, '2025-09-07 00:00:00', N'4, Rue Milton', N'Paris', NULL, N'France', N'75009', 8.91),
-    (390, 48, '2025-09-12 00:00:00', N'Lijnbaansgracht 120bg', N'Amsterdam', N'VV', N'Netherlands', N'1016', 13.86),
-    (391, 3, '2025-09-20 00:00:00', N'1498 rue Bélanger', N'Montréal', N'QC', N'Canada', N'H2G 1A7', 0.99),
-    (392, 4, '2025-10-03 00:00:00', N'Ullevålsveien 14', N'Oslo', NULL, N'Norway', N'0171', 1.98),
-    (393, 6, '2025-10-03 00:00:00', N'Rilská 3174/6', N'Prague', NULL, N'Czech Republic', N'14300', 1.98),
-    (394, 8, '2025-10-04 00:00:00', N'Grétrystraat 63', N'Brussels', NULL, N'Belgium', N'1000', 3.96),
-    (395, 12, '2025-10-05 00:00:00', N'Praça Pio X, 119', N'Rio de Janeiro', N'RJ', N'Brazil', N'20040-020', 5.94),
-    (396, 18, '2025-10-08 00:00:00', N'627 Broadway', N'New York', N'NY', N'USA', N'10012-2612', 8.91),
-    (397, 27, '2025-10-13 00:00:00', N'1033 N Park Ave', N'Tucson', N'AZ', N'USA', N'85719', 13.86),
-    (398, 41, '2025-10-21 00:00:00', N'11, Place Bellecour', N'Lyon', NULL, N'France', N'69002', 0.99),
-    (399, 42, '2025-11-03 00:00:00', N'9, Place Louis Barthou', N'Bordeaux', NULL, N'France', N'33000', 1.98),
-    (400, 44, '2025-11-03 00:00:00', N'Porthaninkatu 9', N'Helsinki', NULL, N'Finland', N'00530', 1.98),
-    (401, 46, '2025-11-04 00:00:00', N'3 Chatham Street', N'Dublin', N'Dublin', N'Ireland', NULL, 3.96),
-    (402, 50, '2025-11-05 00:00:00', N'C/ San Bernardo 85', N'Madrid', NULL, N'Spain', N'28015', 5.94),
-    (403, 56, '2025-11-08 00:00:00', N'307 Macacha Güemes', N'Buenos Aires', NULL, N'Argentina', N'1106', 8.91),
-    (404, 6, '2025-11-13 00:00:00', N'Rilská 3174/6', N'Prague', NULL, N'Czech Republic', N'14300', 25.86),
-    (405, 20, '2025-11-21 00:00:00', N'541 Del Medio Avenue', N'Mountain View', N'CA', N'USA', N'94040-111', 0.99),
-    (406, 21, '2025-12-04 00:00:00', N'801 W 4th Street', N'Reno', N'NV', N'USA', N'89503', 1.98),
-    (407, 23, '2025-12-04 00:00:00', N'69 Salem Street', N'Boston', N'MA', N'USA', N'2113', 1.98),
-    (408, 25, '2025-12-05 00:00:00', N'319 N. Frances Street', N'Madison', N'WI', N'USA', N'53703', 3.96),
-    (409, 29, '2025-12-06 00:00:00', N'796 Dundas Street West', N'Toronto', N'ON', N'Canada', N'M6J 1V1', 5.94),
-    (410, 35, '2025-12-09 00:00:00', N'Rua dos Campeões Europeus de Viena, 4350', N'Porto', NULL, N'Portugal', NULL, 8.91),
-    (411, 44, '2025-12-14 00:00:00', N'Porthaninkatu 9', N'Helsinki', NULL, N'Finland', N'00530', 13.86),
-    (412, 58, '2025-12-22 00:00:00', N'12,Community Centre', N'Delhi', NULL, N'India', N'110017', 1.99);
+INSERT INTO `Invoice` (`InvoiceId`, `CustomerId`, `InvoiceDate`, `BillingAddress`, `BillingCity`, `BillingState`, `BillingCountry`, `BillingPostalCode`, `Total`) VALUES
+    (1, 2, '2021/1/1', N'Theodor-Heuss-Straße 34', N'Stuttgart', NULL, N'Germany', N'70174', 1.98),
+    (2, 4, '2021/1/2', N'Ullevålsveien 14', N'Oslo', NULL, N'Norway', N'0171', 3.96),
+    (3, 8, '2021/1/3', N'Grétrystraat 63', N'Brussels', NULL, N'Belgium', N'1000', 5.94),
+    (4, 14, '2021/1/6', N'8210 111 ST NW', N'Edmonton', N'AB', N'Canada', N'T6G 2C7', 8.91),
+    (5, 23, '2021/1/11', N'69 Salem Street', N'Boston', N'MA', N'USA', N'2113', 13.86),
+    (6, 37, '2021/1/19', N'Berger Straße 10', N'Frankfurt', NULL, N'Germany', N'60316', 0.99),
+    (7, 38, '2021/2/1', N'Barbarossastraße 19', N'Berlin', NULL, N'Germany', N'10779', 1.98),
+    (8, 40, '2021/2/1', N'8, Rue Hanovre', N'Paris', NULL, N'France', N'75002', 1.98),
+    (9, 42, '2021/2/2', N'9, Place Louis Barthou', N'Bordeaux', NULL, N'France', N'33000', 3.96),
+    (10, 46, '2021/2/3', N'3 Chatham Street', N'Dublin', N'Dublin', N'Ireland', NULL, 5.94),
+    (11, 52, '2021/2/6', N'202 Hoxton Street', N'London', NULL, N'United Kingdom', N'N1 5LH', 8.91),
+    (12, 2, '2021/2/11', N'Theodor-Heuss-Straße 34', N'Stuttgart', NULL, N'Germany', N'70174', 13.86),
+    (13, 16, '2021/2/19', N'1600 Amphitheatre Parkway', N'Mountain View', N'CA', N'USA', N'94043-1351', 0.99),
+    (14, 17, '2021/3/4', N'1 Microsoft Way', N'Redmond', N'WA', N'USA', N'98052-8300', 1.98),
+    (15, 19, '2021/3/4', N'1 Infinite Loop', N'Cupertino', N'CA', N'USA', N'95014', 1.98),
+    (16, 21, '2021/3/5', N'801 W 4th Street', N'Reno', N'NV', N'USA', N'89503', 3.96),
+    (17, 25, '2021/3/6', N'319 N. Frances Street', N'Madison', N'WI', N'USA', N'53703', 5.94),
+    (18, 31, '2021/3/9', N'194A Chain Lake Drive', N'Halifax', N'NS', N'Canada', N'B3S 1C5', 8.91),
+    (19, 40, '2021/3/14', N'8, Rue Hanovre', N'Paris', NULL, N'France', N'75002', 13.86),
+    (20, 54, '2021/3/22', N'110 Raeburn Pl', N'Edinburgh ', NULL, N'United Kingdom', N'EH4 1HH', 0.99),
+    (21, 55, '2021/4/4', N'421 Bourke Street', N'Sidney', N'NSW', N'Australia', N'2010', 1.98),
+    (22, 57, '2021/4/4', N'Calle Lira, 198', N'Santiago', NULL, N'Chile', NULL, 1.98),
+    (23, 59, '2021/4/5', N'3,Raj Bhavan Road', N'Bangalore', NULL, N'India', N'560001', 3.96),
+    (24, 4, '2021/4/6', N'Ullevålsveien 14', N'Oslo', NULL, N'Norway', N'0171', 5.94),
+    (25, 10, '2021/4/9', N'Rua Dr. Falcão Filho, 155', N'São Paulo', N'SP', N'Brazil', N'01007-010', 8.91),
+    (26, 19, '2021/4/14', N'1 Infinite Loop', N'Cupertino', N'CA', N'USA', N'95014', 13.86),
+    (27, 33, '2021/4/22', N'5112 48 Street', N'Yellowknife', N'NT', N'Canada', N'X1A 1N6', 0.99),
+    (28, 34, '2021/5/5', N'Rua da Assunção 53', N'Lisbon', NULL, N'Portugal', NULL, 1.98),
+    (29, 36, '2021/5/5', N'Tauentzienstraße 8', N'Berlin', NULL, N'Germany', N'10789', 1.98),
+    (30, 38, '2021/5/6', N'Barbarossastraße 19', N'Berlin', NULL, N'Germany', N'10779', 3.96),
+    (31, 42, '2021/5/7', N'9, Place Louis Barthou', N'Bordeaux', NULL, N'France', N'33000', 5.94),
+    (32, 48, '2021/5/10', N'Lijnbaansgracht 120bg', N'Amsterdam', N'VV', N'Netherlands', N'1016', 8.91),
+    (33, 57, '2021/5/15', N'Calle Lira, 198', N'Santiago', NULL, N'Chile', NULL, 13.86),
+    (34, 12, '2021/5/23', N'Praça Pio X, 119', N'Rio de Janeiro', N'RJ', N'Brazil', N'20040-020', 0.99),
+    (35, 13, '2021/6/5', N'Qe 7 Bloco G', N'Brasília', N'DF', N'Brazil', N'71020-677', 1.98),
+    (36, 15, '2021/6/5', N'700 W Pender Street', N'Vancouver', N'BC', N'Canada', N'V6C 1G8', 1.98),
+    (37, 17, '2021/6/6', N'1 Microsoft Way', N'Redmond', N'WA', N'USA', N'98052-8300', 3.96),
+    (38, 21, '2021/6/7', N'801 W 4th Street', N'Reno', N'NV', N'USA', N'89503', 5.94),
+    (39, 27, '2021/6/10', N'1033 N Park Ave', N'Tucson', N'AZ', N'USA', N'85719', 8.91),
+    (40, 36, '2021/6/15', N'Tauentzienstraße 8', N'Berlin', NULL, N'Germany', N'10789', 13.86),
+    (41, 50, '2021/6/23', N'C/ San Bernardo 85', N'Madrid', NULL, N'Spain', N'28015', 0.99),
+    (42, 51, '2021/7/6', N'Celsiusg. 9', N'Stockholm', NULL, N'Sweden', N'11230', 1.98),
+    (43, 53, '2021/7/6', N'113 Lupus St', N'London', NULL, N'United Kingdom', N'SW1V 3EN', 1.98),
+    (44, 55, '2021/7/7', N'421 Bourke Street', N'Sidney', N'NSW', N'Australia', N'2010', 3.96),
+    (45, 59, '2021/7/8', N'3,Raj Bhavan Road', N'Bangalore', NULL, N'India', N'560001', 5.94),
+    (46, 6, '2021/7/11', N'Rilská 3174/6', N'Prague', NULL, N'Czech Republic', N'14300', 8.91),
+    (47, 15, '2021/7/16', N'700 W Pender Street', N'Vancouver', N'BC', N'Canada', N'V6C 1G8', 13.86),
+    (48, 29, '2021/7/24', N'796 Dundas Street West', N'Toronto', N'ON', N'Canada', N'M6J 1V1', 0.99),
+    (49, 30, '2021/8/6', N'230 Elgin Street', N'Ottawa', N'ON', N'Canada', N'K2P 1L7', 1.98),
+    (50, 32, '2021/8/6', N'696 Osborne Street', N'Winnipeg', N'MB', N'Canada', N'R3L 2B9', 1.98),
+    (51, 34, '2021/8/7', N'Rua da Assunção 53', N'Lisbon', NULL, N'Portugal', NULL, 3.96),
+    (52, 38, '2021/8/8', N'Barbarossastraße 19', N'Berlin', NULL, N'Germany', N'10779', 5.94),
+    (53, 44, '2021/8/11', N'Porthaninkatu 9', N'Helsinki', NULL, N'Finland', N'00530', 8.91),
+    (54, 53, '2021/8/16', N'113 Lupus St', N'London', NULL, N'United Kingdom', N'SW1V 3EN', 13.86),
+    (55, 8, '2021/8/24', N'Grétrystraat 63', N'Brussels', NULL, N'Belgium', N'1000', 0.99),
+    (56, 9, '2021/9/6', N'Sønder Boulevard 51', N'Copenhagen', NULL, N'Denmark', N'1720', 1.98),
+    (57, 11, '2021/9/6', N'Av. Paulista, 2022', N'São Paulo', N'SP', N'Brazil', N'01310-200', 1.98),
+    (58, 13, '2021/9/7', N'Qe 7 Bloco G', N'Brasília', N'DF', N'Brazil', N'71020-677', 3.96),
+    (59, 17, '2021/9/8', N'1 Microsoft Way', N'Redmond', N'WA', N'USA', N'98052-8300', 5.94),
+    (60, 23, '2021/9/11', N'69 Salem Street', N'Boston', N'MA', N'USA', N'2113', 8.91),
+    (61, 32, '2021/9/16', N'696 Osborne Street', N'Winnipeg', N'MB', N'Canada', N'R3L 2B9', 13.86),
+    (62, 46, '2021/9/24', N'3 Chatham Street', N'Dublin', N'Dublin', N'Ireland', NULL, 0.99),
+    (63, 47, '2021/10/7', N'Via Degli Scipioni, 43', N'Rome', N'RM', N'Italy', N'00192', 1.98),
+    (64, 49, '2021/10/7', N'Ordynacka 10', N'Warsaw', NULL, N'Poland', N'00-358', 1.98),
+    (65, 51, '2021/10/8', N'Celsiusg. 9', N'Stockholm', NULL, N'Sweden', N'11230', 3.96),
+    (66, 55, '2021/10/9', N'421 Bourke Street', N'Sidney', N'NSW', N'Australia', N'2010', 5.94),
+    (67, 2, '2021/10/12', N'Theodor-Heuss-Straße 34', N'Stuttgart', NULL, N'Germany', N'70174', 8.91),
+    (68, 11, '2021/10/17', N'Av. Paulista, 2022', N'São Paulo', N'SP', N'Brazil', N'01310-200', 13.86),
+    (69, 25, '2021/10/25', N'319 N. Frances Street', N'Madison', N'WI', N'USA', N'53703', 0.99),
+    (70, 26, '2021/11/7', N'2211 W Berry Street', N'Fort Worth', N'TX', N'USA', N'76110', 1.98),
+    (71, 28, '2021/11/7', N'302 S 700 E', N'Salt Lake City', N'UT', N'USA', N'84102', 1.98),
+    (72, 30, '2021/11/8', N'230 Elgin Street', N'Ottawa', N'ON', N'Canada', N'K2P 1L7', 3.96),
+    (73, 34, '2021/11/9', N'Rua da Assunção 53', N'Lisbon', NULL, N'Portugal', NULL, 5.94),
+    (74, 40, '2021/11/12', N'8, Rue Hanovre', N'Paris', NULL, N'France', N'75002', 8.91),
+    (75, 49, '2021/11/17', N'Ordynacka 10', N'Warsaw', NULL, N'Poland', N'00-358', 13.86),
+    (76, 4, '2021/11/25', N'Ullevålsveien 14', N'Oslo', NULL, N'Norway', N'0171', 0.99),
+    (77, 5, '2021/12/8', N'Klanova 9/506', N'Prague', NULL, N'Czech Republic', N'14700', 1.98),
+    (78, 7, '2021/12/8', N'Rotenturmstraße 4, 1010 Innere Stadt', N'Vienne', NULL, N'Austria', N'1010', 1.98),
+    (79, 9, '2021/12/9', N'Sønder Boulevard 51', N'Copenhagen', NULL, N'Denmark', N'1720', 3.96),
+    (80, 13, '2021/12/10', N'Qe 7 Bloco G', N'Brasília', N'DF', N'Brazil', N'71020-677', 5.94),
+    (81, 19, '2021/12/13', N'1 Infinite Loop', N'Cupertino', N'CA', N'USA', N'95014', 8.91),
+    (82, 28, '2021/12/18', N'302 S 700 E', N'Salt Lake City', N'UT', N'USA', N'84102', 13.86),
+    (83, 42, '2021/12/26', N'9, Place Louis Barthou', N'Bordeaux', NULL, N'France', N'33000', 0.99),
+    (84, 43, '2022/1/8', N'68, Rue Jouvence', N'Dijon', NULL, N'France', N'21000', 1.98),
+    (85, 45, '2022/1/8', N'Erzsébet krt. 58.', N'Budapest', NULL, N'Hungary', N'H-1073', 1.98),
+    (86, 47, '2022/1/9', N'Via Degli Scipioni, 43', N'Rome', N'RM', N'Italy', N'00192', 3.96),
+    (87, 51, '2022/1/10', N'Celsiusg. 9', N'Stockholm', NULL, N'Sweden', N'11230', 6.94),
+    (88, 57, '2022/1/13', N'Calle Lira, 198', N'Santiago', NULL, N'Chile', NULL, 17.91),
+    (89, 7, '2022/1/18', N'Rotenturmstraße 4, 1010 Innere Stadt', N'Vienne', NULL, N'Austria', N'1010', 18.86),
+    (90, 21, '2022/1/26', N'801 W 4th Street', N'Reno', N'NV', N'USA', N'89503', 0.99),
+    (91, 22, '2022/2/8', N'120 S Orange Ave', N'Orlando', N'FL', N'USA', N'32801', 1.98),
+    (92, 24, '2022/2/8', N'162 E Superior Street', N'Chicago', N'IL', N'USA', N'60611', 1.98),
+    (93, 26, '2022/2/9', N'2211 W Berry Street', N'Fort Worth', N'TX', N'USA', N'76110', 3.96),
+    (94, 30, '2022/2/10', N'230 Elgin Street', N'Ottawa', N'ON', N'Canada', N'K2P 1L7', 5.94),
+    (95, 36, '2022/2/13', N'Tauentzienstraße 8', N'Berlin', NULL, N'Germany', N'10789', 8.91),
+    (96, 45, '2022/2/18', N'Erzsébet krt. 58.', N'Budapest', NULL, N'Hungary', N'H-1073', 21.86),
+    (97, 59, '2022/2/26', N'3,Raj Bhavan Road', N'Bangalore', NULL, N'India', N'560001', 1.99),
+    (98, 1, '2022/3/11', N'Av. Brigadeiro Faria Lima, 2170', N'São José dos Campos', N'SP', N'Brazil', N'12227-000', 3.98),
+    (99, 3, '2022/3/11', N'1498 rue Bélanger', N'Montréal', N'QC', N'Canada', N'H2G 1A7', 3.98),
+    (100, 5, '2022/3/12', N'Klanova 9/506', N'Prague', NULL, N'Czech Republic', N'14700', 3.96),
+    (101, 9, '2022/3/13', N'Sønder Boulevard 51', N'Copenhagen', NULL, N'Denmark', N'1720', 5.94),
+    (102, 15, '2022/3/16', N'700 W Pender Street', N'Vancouver', N'BC', N'Canada', N'V6C 1G8', 9.91),
+    (103, 24, '2022/3/21', N'162 E Superior Street', N'Chicago', N'IL', N'USA', N'60611', 15.86),
+    (104, 38, '2022/3/29', N'Barbarossastraße 19', N'Berlin', NULL, N'Germany', N'10779', 0.99),
+    (105, 39, '2022/4/11', N'4, Rue Milton', N'Paris', NULL, N'France', N'75009', 1.98),
+    (106, 41, '2022/4/11', N'11, Place Bellecour', N'Lyon', NULL, N'France', N'69002', 1.98),
+    (107, 43, '2022/4/12', N'68, Rue Jouvence', N'Dijon', NULL, N'France', N'21000', 3.96),
+    (108, 47, '2022/4/13', N'Via Degli Scipioni, 43', N'Rome', N'RM', N'Italy', N'00192', 5.94),
+    (109, 53, '2022/4/16', N'113 Lupus St', N'London', NULL, N'United Kingdom', N'SW1V 3EN', 8.91),
+    (110, 3, '2022/4/21', N'1498 rue Bélanger', N'Montréal', N'QC', N'Canada', N'H2G 1A7', 13.86),
+    (111, 17, '2022/4/29', N'1 Microsoft Way', N'Redmond', N'WA', N'USA', N'98052-8300', 0.99),
+    (112, 18, '2022/5/12', N'627 Broadway', N'New York', N'NY', N'USA', N'10012-2612', 1.98),
+    (113, 20, '2022/5/12', N'541 Del Medio Avenue', N'Mountain View', N'CA', N'USA', N'94040-111', 1.98),
+    (114, 22, '2022/5/13', N'120 S Orange Ave', N'Orlando', N'FL', N'USA', N'32801', 3.96),
+    (115, 26, '2022/5/14', N'2211 W Berry Street', N'Fort Worth', N'TX', N'USA', N'76110', 5.94),
+    (116, 32, '2022/5/17', N'696 Osborne Street', N'Winnipeg', N'MB', N'Canada', N'R3L 2B9', 8.91),
+    (117, 41, '2022/5/22', N'11, Place Bellecour', N'Lyon', NULL, N'France', N'69002', 13.86),
+    (118, 55, '2022/5/30', N'421 Bourke Street', N'Sidney', N'NSW', N'Australia', N'2010', 0.99),
+    (119, 56, '2022/6/12', N'307 Macacha Güemes', N'Buenos Aires', NULL, N'Argentina', N'1106', 1.98),
+    (120, 58, '2022/6/12', N'12,Community Centre', N'Delhi', NULL, N'India', N'110017', 1.98),
+    (121, 1, '2022/6/13', N'Av. Brigadeiro Faria Lima, 2170', N'São José dos Campos', N'SP', N'Brazil', N'12227-000', 3.96),
+    (122, 5, '2022/6/14', N'Klanova 9/506', N'Prague', NULL, N'Czech Republic', N'14700', 5.94),
+    (123, 11, '2022/6/17', N'Av. Paulista, 2022', N'São Paulo', N'SP', N'Brazil', N'01310-200', 8.91),
+    (124, 20, '2022/6/22', N'541 Del Medio Avenue', N'Mountain View', N'CA', N'USA', N'94040-111', 13.86),
+    (125, 34, '2022/6/30', N'Rua da Assunção 53', N'Lisbon', NULL, N'Portugal', NULL, 0.99),
+    (126, 35, '2022/7/13', N'Rua dos Campeões Europeus de Viena, 4350', N'Porto', NULL, N'Portugal', NULL, 1.98),
+    (127, 37, '2022/7/13', N'Berger Straße 10', N'Frankfurt', NULL, N'Germany', N'60316', 1.98),
+    (128, 39, '2022/7/14', N'4, Rue Milton', N'Paris', NULL, N'France', N'75009', 3.96),
+    (129, 43, '2022/7/15', N'68, Rue Jouvence', N'Dijon', NULL, N'France', N'21000', 5.94),
+    (130, 49, '2022/7/18', N'Ordynacka 10', N'Warsaw', NULL, N'Poland', N'00-358', 8.91),
+    (131, 58, '2022/7/23', N'12,Community Centre', N'Delhi', NULL, N'India', N'110017', 13.86),
+    (132, 13, '2022/7/31', N'Qe 7 Bloco G', N'Brasília', N'DF', N'Brazil', N'71020-677', 0.99),
+    (133, 14, '2022/8/13', N'8210 111 ST NW', N'Edmonton', N'AB', N'Canada', N'T6G 2C7', 1.98),
+    (134, 16, '2022/8/13', N'1600 Amphitheatre Parkway', N'Mountain View', N'CA', N'USA', N'94043-1351', 1.98),
+    (135, 18, '2022/8/14', N'627 Broadway', N'New York', N'NY', N'USA', N'10012-2612', 3.96),
+    (136, 22, '2022/8/15', N'120 S Orange Ave', N'Orlando', N'FL', N'USA', N'32801', 5.94),
+    (137, 28, '2022/8/18', N'302 S 700 E', N'Salt Lake City', N'UT', N'USA', N'84102', 8.91),
+    (138, 37, '2022/8/23', N'Berger Straße 10', N'Frankfurt', NULL, N'Germany', N'60316', 13.86),
+    (139, 51, '2022/8/31', N'Celsiusg. 9', N'Stockholm', NULL, N'Sweden', N'11230', 0.99),
+    (140, 52, '2022/9/13', N'202 Hoxton Street', N'London', NULL, N'United Kingdom', N'N1 5LH', 1.98),
+    (141, 54, '2022/9/13', N'110 Raeburn Pl', N'Edinburgh ', NULL, N'United Kingdom', N'EH4 1HH', 1.98),
+    (142, 56, '2022/9/14', N'307 Macacha Güemes', N'Buenos Aires', NULL, N'Argentina', N'1106', 3.96),
+    (143, 1, '2022/9/15', N'Av. Brigadeiro Faria Lima, 2170', N'São José dos Campos', N'SP', N'Brazil', N'12227-000', 5.94),
+    (144, 7, '2022/9/18', N'Rotenturmstraße 4, 1010 Innere Stadt', N'Vienne', NULL, N'Austria', N'1010', 8.91),
+    (145, 16, '2022/9/23', N'1600 Amphitheatre Parkway', N'Mountain View', N'CA', N'USA', N'94043-1351', 13.86),
+    (146, 30, '2022/10/1', N'230 Elgin Street', N'Ottawa', N'ON', N'Canada', N'K2P 1L7', 0.99),
+    (147, 31, '2022/10/14', N'194A Chain Lake Drive', N'Halifax', N'NS', N'Canada', N'B3S 1C5', 1.98),
+    (148, 33, '2022/10/14', N'5112 48 Street', N'Yellowknife', N'NT', N'Canada', N'X1A 1N6', 1.98),
+    (149, 35, '2022/10/15', N'Rua dos Campeões Europeus de Viena, 4350', N'Porto', NULL, N'Portugal', NULL, 3.96),
+    (150, 39, '2022/10/16', N'4, Rue Milton', N'Paris', NULL, N'France', N'75009', 5.94),
+    (151, 45, '2022/10/19', N'Erzsébet krt. 58.', N'Budapest', NULL, N'Hungary', N'H-1073', 8.91),
+    (152, 54, '2022/10/24', N'110 Raeburn Pl', N'Edinburgh ', NULL, N'United Kingdom', N'EH4 1HH', 13.86),
+    (153, 9, '2022/11/1', N'Sønder Boulevard 51', N'Copenhagen', NULL, N'Denmark', N'1720', 0.99),
+    (154, 10, '2022/11/14', N'Rua Dr. Falcão Filho, 155', N'São Paulo', N'SP', N'Brazil', N'01007-010', 1.98),
+    (155, 12, '2022/11/14', N'Praça Pio X, 119', N'Rio de Janeiro', N'RJ', N'Brazil', N'20040-020', 1.98),
+    (156, 14, '2022/11/15', N'8210 111 ST NW', N'Edmonton', N'AB', N'Canada', N'T6G 2C7', 3.96),
+    (157, 18, '2022/11/16', N'627 Broadway', N'New York', N'NY', N'USA', N'10012-2612', 5.94),
+    (158, 24, '2022/11/19', N'162 E Superior Street', N'Chicago', N'IL', N'USA', N'60611', 8.91),
+    (159, 33, '2022/11/24', N'5112 48 Street', N'Yellowknife', N'NT', N'Canada', N'X1A 1N6', 13.86),
+    (160, 47, '2022/12/2', N'Via Degli Scipioni, 43', N'Rome', N'RM', N'Italy', N'00192', 0.99),
+    (161, 48, '2022/12/15', N'Lijnbaansgracht 120bg', N'Amsterdam', N'VV', N'Netherlands', N'1016', 1.98),
+    (162, 50, '2022/12/15', N'C/ San Bernardo 85', N'Madrid', NULL, N'Spain', N'28015', 1.98),
+    (163, 52, '2022/12/16', N'202 Hoxton Street', N'London', NULL, N'United Kingdom', N'N1 5LH', 3.96),
+    (164, 56, '2022/12/17', N'307 Macacha Güemes', N'Buenos Aires', NULL, N'Argentina', N'1106', 5.94),
+    (165, 3, '2022/12/20', N'1498 rue Bélanger', N'Montréal', N'QC', N'Canada', N'H2G 1A7', 8.91),
+    (166, 12, '2022/12/25', N'Praça Pio X, 119', N'Rio de Janeiro', N'RJ', N'Brazil', N'20040-020', 13.86),
+    (167, 26, '2023/1/2', N'2211 W Berry Street', N'Fort Worth', N'TX', N'USA', N'76110', 0.99),
+    (168, 27, '2023/1/15', N'1033 N Park Ave', N'Tucson', N'AZ', N'USA', N'85719', 1.98),
+    (169, 29, '2023/1/15', N'796 Dundas Street West', N'Toronto', N'ON', N'Canada', N'M6J 1V1', 1.98),
+    (170, 31, '2023/1/16', N'194A Chain Lake Drive', N'Halifax', N'NS', N'Canada', N'B3S 1C5', 3.96),
+    (171, 35, '2023/1/17', N'Rua dos Campeões Europeus de Viena, 4350', N'Porto', NULL, N'Portugal', NULL, 5.94),
+    (172, 41, '2023/1/20', N'11, Place Bellecour', N'Lyon', NULL, N'France', N'69002', 8.91),
+    (173, 50, '2023/1/25', N'C/ San Bernardo 85', N'Madrid', NULL, N'Spain', N'28015', 13.86),
+    (174, 5, '2023/2/2', N'Klanova 9/506', N'Prague', NULL, N'Czech Republic', N'14700', 0.99),
+    (175, 6, '2023/2/15', N'Rilská 3174/6', N'Prague', NULL, N'Czech Republic', N'14300', 1.98),
+    (176, 8, '2023/2/15', N'Grétrystraat 63', N'Brussels', NULL, N'Belgium', N'1000', 1.98),
+    (177, 10, '2023/2/16', N'Rua Dr. Falcão Filho, 155', N'São Paulo', N'SP', N'Brazil', N'01007-010', 3.96),
+    (178, 14, '2023/2/17', N'8210 111 ST NW', N'Edmonton', N'AB', N'Canada', N'T6G 2C7', 5.94),
+    (179, 20, '2023/2/20', N'541 Del Medio Avenue', N'Mountain View', N'CA', N'USA', N'94040-111', 8.91),
+    (180, 29, '2023/2/25', N'796 Dundas Street West', N'Toronto', N'ON', N'Canada', N'M6J 1V1', 13.86),
+    (181, 43, '2023/3/5', N'68, Rue Jouvence', N'Dijon', NULL, N'France', N'21000', 0.99),
+    (182, 44, '2023/3/18', N'Porthaninkatu 9', N'Helsinki', NULL, N'Finland', N'00530', 1.98),
+    (183, 46, '2023/3/18', N'3 Chatham Street', N'Dublin', N'Dublin', N'Ireland', NULL, 1.98),
+    (184, 48, '2023/3/19', N'Lijnbaansgracht 120bg', N'Amsterdam', N'VV', N'Netherlands', N'1016', 3.96),
+    (185, 52, '2023/3/20', N'202 Hoxton Street', N'London', NULL, N'United Kingdom', N'N1 5LH', 5.94),
+    (186, 58, '2023/3/23', N'12,Community Centre', N'Delhi', NULL, N'India', N'110017', 8.91),
+    (187, 8, '2023/3/28', N'Grétrystraat 63', N'Brussels', NULL, N'Belgium', N'1000', 13.86),
+    (188, 22, '2023/4/5', N'120 S Orange Ave', N'Orlando', N'FL', N'USA', N'32801', 0.99),
+    (189, 23, '2023/4/18', N'69 Salem Street', N'Boston', N'MA', N'USA', N'2113', 1.98),
+    (190, 25, '2023/4/18', N'319 N. Frances Street', N'Madison', N'WI', N'USA', N'53703', 1.98),
+    (191, 27, '2023/4/19', N'1033 N Park Ave', N'Tucson', N'AZ', N'USA', N'85719', 3.96),
+    (192, 31, '2023/4/20', N'194A Chain Lake Drive', N'Halifax', N'NS', N'Canada', N'B3S 1C5', 5.94),
+    (193, 37, '2023/4/23', N'Berger Straße 10', N'Frankfurt', NULL, N'Germany', N'60316', 14.91),
+    (194, 46, '2023/4/28', N'3 Chatham Street', N'Dublin', N'Dublin', N'Ireland', NULL, 21.86),
+    (195, 1, '2023/5/6', N'Av. Brigadeiro Faria Lima, 2170', N'São José dos Campos', N'SP', N'Brazil', N'12227-000', 0.99),
+    (196, 2, '2023/5/19', N'Theodor-Heuss-Straße 34', N'Stuttgart', NULL, N'Germany', N'70174', 1.98),
+    (197, 4, '2023/5/19', N'Ullevålsveien 14', N'Oslo', NULL, N'Norway', N'0171', 1.98),
+    (198, 6, '2023/5/20', N'Rilská 3174/6', N'Prague', NULL, N'Czech Republic', N'14300', 3.96),
+    (199, 10, '2023/5/21', N'Rua Dr. Falcão Filho, 155', N'São Paulo', N'SP', N'Brazil', N'01007-010', 5.94),
+    (200, 16, '2023/5/24', N'1600 Amphitheatre Parkway', N'Mountain View', N'CA', N'USA', N'94043-1351', 8.91),
+    (201, 25, '2023/5/29', N'319 N. Frances Street', N'Madison', N'WI', N'USA', N'53703', 18.86),
+    (202, 39, '2023/6/6', N'4, Rue Milton', N'Paris', NULL, N'France', N'75009', 1.99),
+    (203, 40, '2023/6/19', N'8, Rue Hanovre', N'Paris', NULL, N'France', N'75002', 2.98),
+    (204, 42, '2023/6/19', N'9, Place Louis Barthou', N'Bordeaux', NULL, N'France', N'33000', 3.98),
+    (205, 44, '2023/6/20', N'Porthaninkatu 9', N'Helsinki', NULL, N'Finland', N'00530', 7.96),
+    (206, 48, '2023/6/21', N'Lijnbaansgracht 120bg', N'Amsterdam', N'VV', N'Netherlands', N'1016', 8.94),
+    (207, 54, '2023/6/24', N'110 Raeburn Pl', N'Edinburgh ', NULL, N'United Kingdom', N'EH4 1HH', 8.91),
+    (208, 4, '2023/6/29', N'Ullevålsveien 14', N'Oslo', NULL, N'Norway', N'0171', 15.86),
+    (209, 18, '2023/7/7', N'627 Broadway', N'New York', N'NY', N'USA', N'10012-2612', 0.99),
+    (210, 19, '2023/7/20', N'1 Infinite Loop', N'Cupertino', N'CA', N'USA', N'95014', 1.98),
+    (211, 21, '2023/7/20', N'801 W 4th Street', N'Reno', N'NV', N'USA', N'89503', 1.98),
+    (212, 23, '2023/7/21', N'69 Salem Street', N'Boston', N'MA', N'USA', N'2113', 3.96),
+    (213, 27, '2023/7/22', N'1033 N Park Ave', N'Tucson', N'AZ', N'USA', N'85719', 5.94),
+    (214, 33, '2023/7/25', N'5112 48 Street', N'Yellowknife', N'NT', N'Canada', N'X1A 1N6', 8.91),
+    (215, 42, '2023/7/30', N'9, Place Louis Barthou', N'Bordeaux', NULL, N'France', N'33000', 13.86),
+    (216, 56, '2023/8/7', N'307 Macacha Güemes', N'Buenos Aires', NULL, N'Argentina', N'1106', 0.99),
+    (217, 57, '2023/8/20', N'Calle Lira, 198', N'Santiago', NULL, N'Chile', NULL, 1.98),
+    (218, 59, '2023/8/20', N'3,Raj Bhavan Road', N'Bangalore', NULL, N'India', N'560001', 1.98),
+    (219, 2, '2023/8/21', N'Theodor-Heuss-Straße 34', N'Stuttgart', NULL, N'Germany', N'70174', 3.96),
+    (220, 6, '2023/8/22', N'Rilská 3174/6', N'Prague', NULL, N'Czech Republic', N'14300', 5.94),
+    (221, 12, '2023/8/25', N'Praça Pio X, 119', N'Rio de Janeiro', N'RJ', N'Brazil', N'20040-020', 8.91),
+    (222, 21, '2023/8/30', N'801 W 4th Street', N'Reno', N'NV', N'USA', N'89503', 13.86),
+    (223, 35, '2023/9/7', N'Rua dos Campeões Europeus de Viena, 4350', N'Porto', NULL, N'Portugal', NULL, 0.99),
+    (224, 36, '2023/9/20', N'Tauentzienstraße 8', N'Berlin', NULL, N'Germany', N'10789', 1.98),
+    (225, 38, '2023/9/20', N'Barbarossastraße 19', N'Berlin', NULL, N'Germany', N'10779', 1.98),
+    (226, 40, '2023/9/21', N'8, Rue Hanovre', N'Paris', NULL, N'France', N'75002', 3.96),
+    (227, 44, '2023/9/22', N'Porthaninkatu 9', N'Helsinki', NULL, N'Finland', N'00530', 5.94),
+    (228, 50, '2023/9/25', N'C/ San Bernardo 85', N'Madrid', NULL, N'Spain', N'28015', 8.91),
+    (229, 59, '2023/9/30', N'3,Raj Bhavan Road', N'Bangalore', NULL, N'India', N'560001', 13.86),
+    (230, 14, '2023/10/8', N'8210 111 ST NW', N'Edmonton', N'AB', N'Canada', N'T6G 2C7', 0.99),
+    (231, 15, '2023/10/21', N'700 W Pender Street', N'Vancouver', N'BC', N'Canada', N'V6C 1G8', 1.98),
+    (232, 17, '2023/10/21', N'1 Microsoft Way', N'Redmond', N'WA', N'USA', N'98052-8300', 1.98),
+    (233, 19, '2023/10/22', N'1 Infinite Loop', N'Cupertino', N'CA', N'USA', N'95014', 3.96),
+    (234, 23, '2023/10/23', N'69 Salem Street', N'Boston', N'MA', N'USA', N'2113', 5.94),
+    (235, 29, '2023/10/26', N'796 Dundas Street West', N'Toronto', N'ON', N'Canada', N'M6J 1V1', 8.91),
+    (236, 38, '2023/10/31', N'Barbarossastraße 19', N'Berlin', NULL, N'Germany', N'10779', 13.86),
+    (237, 52, '2023/11/8', N'202 Hoxton Street', N'London', NULL, N'United Kingdom', N'N1 5LH', 0.99),
+    (238, 53, '2023/11/21', N'113 Lupus St', N'London', NULL, N'United Kingdom', N'SW1V 3EN', 1.98),
+    (239, 55, '2023/11/21', N'421 Bourke Street', N'Sidney', N'NSW', N'Australia', N'2010', 1.98),
+    (240, 57, '2023/11/22', N'Calle Lira, 198', N'Santiago', NULL, N'Chile', NULL, 3.96),
+    (241, 2, '2023/11/23', N'Theodor-Heuss-Straße 34', N'Stuttgart', NULL, N'Germany', N'70174', 5.94),
+    (242, 8, '2023/11/26', N'Grétrystraat 63', N'Brussels', NULL, N'Belgium', N'1000', 8.91),
+    (243, 17, '2023/12/1', N'1 Microsoft Way', N'Redmond', N'WA', N'USA', N'98052-8300', 13.86),
+    (244, 31, '2023/12/9', N'194A Chain Lake Drive', N'Halifax', N'NS', N'Canada', N'B3S 1C5', 0.99),
+    (245, 32, '2023/12/22', N'696 Osborne Street', N'Winnipeg', N'MB', N'Canada', N'R3L 2B9', 1.98),
+    (246, 34, '2023/12/22', N'Rua da Assunção 53', N'Lisbon', NULL, N'Portugal', NULL, 1.98),
+    (247, 36, '2023/12/23', N'Tauentzienstraße 8', N'Berlin', NULL, N'Germany', N'10789', 3.96),
+    (248, 40, '2023/12/24', N'8, Rue Hanovre', N'Paris', NULL, N'France', N'75002', 5.94),
+    (249, 46, '2023/12/27', N'3 Chatham Street', N'Dublin', N'Dublin', N'Ireland', NULL, 8.91),
+    (250, 55, '2024/1/1', N'421 Bourke Street', N'Sidney', N'NSW', N'Australia', N'2010', 13.86),
+    (251, 10, '2024/1/9', N'Rua Dr. Falcão Filho, 155', N'São Paulo', N'SP', N'Brazil', N'01007-010', 0.99),
+    (252, 11, '2024/1/22', N'Av. Paulista, 2022', N'São Paulo', N'SP', N'Brazil', N'01310-200', 1.98),
+    (253, 13, '2024/1/22', N'Qe 7 Bloco G', N'Brasília', N'DF', N'Brazil', N'71020-677', 1.98),
+    (254, 15, '2024/1/23', N'700 W Pender Street', N'Vancouver', N'BC', N'Canada', N'V6C 1G8', 3.96),
+    (255, 19, '2024/1/24', N'1 Infinite Loop', N'Cupertino', N'CA', N'USA', N'95014', 5.94),
+    (256, 25, '2024/1/27', N'319 N. Frances Street', N'Madison', N'WI', N'USA', N'53703', 8.91),
+    (257, 34, '2024/2/1', N'Rua da Assunção 53', N'Lisbon', NULL, N'Portugal', NULL, 13.86),
+    (258, 48, '2024/2/9', N'Lijnbaansgracht 120bg', N'Amsterdam', N'VV', N'Netherlands', N'1016', 0.99),
+    (259, 49, '2024/2/22', N'Ordynacka 10', N'Warsaw', NULL, N'Poland', N'00-358', 1.98),
+    (260, 51, '2024/2/22', N'Celsiusg. 9', N'Stockholm', NULL, N'Sweden', N'11230', 1.98),
+    (261, 53, '2024/2/23', N'113 Lupus St', N'London', NULL, N'United Kingdom', N'SW1V 3EN', 3.96),
+    (262, 57, '2024/2/24', N'Calle Lira, 198', N'Santiago', NULL, N'Chile', NULL, 5.94),
+    (263, 4, '2024/2/27', N'Ullevålsveien 14', N'Oslo', NULL, N'Norway', N'0171', 8.91),
+    (264, 13, '2024/3/3', N'Qe 7 Bloco G', N'Brasília', N'DF', N'Brazil', N'71020-677', 13.86),
+    (265, 27, '2024/3/11', N'1033 N Park Ave', N'Tucson', N'AZ', N'USA', N'85719', 0.99),
+    (266, 28, '2024/3/24', N'302 S 700 E', N'Salt Lake City', N'UT', N'USA', N'84102', 1.98),
+    (267, 30, '2024/3/24', N'230 Elgin Street', N'Ottawa', N'ON', N'Canada', N'K2P 1L7', 1.98),
+    (268, 32, '2024/3/25', N'696 Osborne Street', N'Winnipeg', N'MB', N'Canada', N'R3L 2B9', 3.96),
+    (269, 36, '2024/3/26', N'Tauentzienstraße 8', N'Berlin', NULL, N'Germany', N'10789', 5.94),
+    (270, 42, '2024/3/29', N'9, Place Louis Barthou', N'Bordeaux', NULL, N'France', N'33000', 8.91),
+    (271, 51, '2024/4/3', N'Celsiusg. 9', N'Stockholm', NULL, N'Sweden', N'11230', 13.86),
+    (272, 6, '2024/4/11', N'Rilská 3174/6', N'Prague', NULL, N'Czech Republic', N'14300', 0.99),
+    (273, 7, '2024/4/24', N'Rotenturmstraße 4, 1010 Innere Stadt', N'Vienne', NULL, N'Austria', N'1010', 1.98),
+    (274, 9, '2024/4/24', N'Sønder Boulevard 51', N'Copenhagen', NULL, N'Denmark', N'1720', 1.98),
+    (275, 11, '2024/4/25', N'Av. Paulista, 2022', N'São Paulo', N'SP', N'Brazil', N'01310-200', 3.96),
+    (276, 15, '2024/4/26', N'700 W Pender Street', N'Vancouver', N'BC', N'Canada', N'V6C 1G8', 5.94),
+    (277, 21, '2024/4/29', N'801 W 4th Street', N'Reno', N'NV', N'USA', N'89503', 8.91),
+    (278, 30, '2024/5/4', N'230 Elgin Street', N'Ottawa', N'ON', N'Canada', N'K2P 1L7', 13.86),
+    (279, 44, '2024/5/12', N'Porthaninkatu 9', N'Helsinki', NULL, N'Finland', N'00530', 0.99),
+    (280, 45, '2024/5/25', N'Erzsébet krt. 58.', N'Budapest', NULL, N'Hungary', N'H-1073', 1.98),
+    (281, 47, '2024/5/25', N'Via Degli Scipioni, 43', N'Rome', N'RM', N'Italy', N'00192', 1.98),
+    (282, 49, '2024/5/26', N'Ordynacka 10', N'Warsaw', NULL, N'Poland', N'00-358', 3.96),
+    (283, 53, '2024/5/27', N'113 Lupus St', N'London', NULL, N'United Kingdom', N'SW1V 3EN', 5.94),
+    (284, 59, '2024/5/30', N'3,Raj Bhavan Road', N'Bangalore', NULL, N'India', N'560001', 8.91),
+    (285, 9, '2024/6/4', N'Sønder Boulevard 51', N'Copenhagen', NULL, N'Denmark', N'1720', 13.86),
+    (286, 23, '2024/6/12', N'69 Salem Street', N'Boston', N'MA', N'USA', N'2113', 0.99),
+    (287, 24, '2024/6/25', N'162 E Superior Street', N'Chicago', N'IL', N'USA', N'60611', 1.98),
+    (288, 26, '2024/6/25', N'2211 W Berry Street', N'Fort Worth', N'TX', N'USA', N'76110', 1.98),
+    (289, 28, '2024/6/26', N'302 S 700 E', N'Salt Lake City', N'UT', N'USA', N'84102', 3.96),
+    (290, 32, '2024/6/27', N'696 Osborne Street', N'Winnipeg', N'MB', N'Canada', N'R3L 2B9', 5.94),
+    (291, 38, '2024/6/30', N'Barbarossastraße 19', N'Berlin', NULL, N'Germany', N'10779', 8.91),
+    (292, 47, '2024/7/5', N'Via Degli Scipioni, 43', N'Rome', N'RM', N'Italy', N'00192', 13.86),
+    (293, 2, '2024/7/13', N'Theodor-Heuss-Straße 34', N'Stuttgart', NULL, N'Germany', N'70174', 0.99),
+    (294, 3, '2024/7/26', N'1498 rue Bélanger', N'Montréal', N'QC', N'Canada', N'H2G 1A7', 1.98),
+    (295, 5, '2024/7/26', N'Klanova 9/506', N'Prague', NULL, N'Czech Republic', N'14700', 1.98),
+    (296, 7, '2024/7/27', N'Rotenturmstraße 4, 1010 Innere Stadt', N'Vienne', NULL, N'Austria', N'1010', 3.96),
+    (297, 11, '2024/7/28', N'Av. Paulista, 2022', N'São Paulo', N'SP', N'Brazil', N'01310-200', 5.94),
+    (298, 17, '2024/7/31', N'1 Microsoft Way', N'Redmond', N'WA', N'USA', N'98052-8300', 10.91),
+    (299, 26, '2024/8/5', N'2211 W Berry Street', N'Fort Worth', N'TX', N'USA', N'76110', 23.86),
+    (300, 40, '2024/8/13', N'8, Rue Hanovre', N'Paris', NULL, N'France', N'75002', 0.99),
+    (301, 41, '2024/8/26', N'11, Place Bellecour', N'Lyon', NULL, N'France', N'69002', 1.98),
+    (302, 43, '2024/8/26', N'68, Rue Jouvence', N'Dijon', NULL, N'France', N'21000', 1.98),
+    (303, 45, '2024/8/27', N'Erzsébet krt. 58.', N'Budapest', NULL, N'Hungary', N'H-1073', 3.96),
+    (304, 49, '2024/8/28', N'Ordynacka 10', N'Warsaw', NULL, N'Poland', N'00-358', 5.94),
+    (305, 55, '2024/8/31', N'421 Bourke Street', N'Sidney', N'NSW', N'Australia', N'2010', 8.91),
+    (306, 5, '2024/9/5', N'Klanova 9/506', N'Prague', NULL, N'Czech Republic', N'14700', 16.86),
+    (307, 19, '2024/9/13', N'1 Infinite Loop', N'Cupertino', N'CA', N'USA', N'95014', 1.99),
+    (308, 20, '2024/9/26', N'541 Del Medio Avenue', N'Mountain View', N'CA', N'USA', N'94040-111', 3.98),
+    (309, 22, '2024/9/26', N'120 S Orange Ave', N'Orlando', N'FL', N'USA', N'32801', 3.98),
+    (310, 24, '2024/9/27', N'162 E Superior Street', N'Chicago', N'IL', N'USA', N'60611', 7.96),
+    (311, 28, '2024/9/28', N'302 S 700 E', N'Salt Lake City', N'UT', N'USA', N'84102', 11.94),
+    (312, 34, '2024/10/1', N'Rua da Assunção 53', N'Lisbon', NULL, N'Portugal', NULL, 10.91),
+    (313, 43, '2024/10/6', N'68, Rue Jouvence', N'Dijon', NULL, N'France', N'21000', 16.86),
+    (314, 57, '2024/10/14', N'Calle Lira, 198', N'Santiago', NULL, N'Chile', NULL, 0.99),
+    (315, 58, '2024/10/27', N'12,Community Centre', N'Delhi', NULL, N'India', N'110017', 1.98),
+    (316, 1, '2024/10/27', N'Av. Brigadeiro Faria Lima, 2170', N'São José dos Campos', N'SP', N'Brazil', N'12227-000', 1.98),
+    (317, 3, '2024/10/28', N'1498 rue Bélanger', N'Montréal', N'QC', N'Canada', N'H2G 1A7', 3.96),
+    (318, 7, '2024/10/29', N'Rotenturmstraße 4, 1010 Innere Stadt', N'Vienne', NULL, N'Austria', N'1010', 5.94),
+    (319, 13, '2024/11/1', N'Qe 7 Bloco G', N'Brasília', N'DF', N'Brazil', N'71020-677', 8.91),
+    (320, 22, '2024/11/6', N'120 S Orange Ave', N'Orlando', N'FL', N'USA', N'32801', 13.86),
+    (321, 36, '2024/11/14', N'Tauentzienstraße 8', N'Berlin', NULL, N'Germany', N'10789', 0.99),
+    (322, 37, '2024/11/27', N'Berger Straße 10', N'Frankfurt', NULL, N'Germany', N'60316', 1.98),
+    (323, 39, '2024/11/27', N'4, Rue Milton', N'Paris', NULL, N'France', N'75009', 1.98),
+    (324, 41, '2024/11/28', N'11, Place Bellecour', N'Lyon', NULL, N'France', N'69002', 3.96),
+    (325, 45, '2024/11/29', N'Erzsébet krt. 58.', N'Budapest', NULL, N'Hungary', N'H-1073', 5.94),
+    (326, 51, '2024/12/2', N'Celsiusg. 9', N'Stockholm', NULL, N'Sweden', N'11230', 8.91),
+    (327, 1, '2024/12/7', N'Av. Brigadeiro Faria Lima, 2170', N'São José dos Campos', N'SP', N'Brazil', N'12227-000', 13.86),
+    (328, 15, '2024/12/15', N'700 W Pender Street', N'Vancouver', N'BC', N'Canada', N'V6C 1G8', 0.99),
+    (329, 16, '2024/12/28', N'1600 Amphitheatre Parkway', N'Mountain View', N'CA', N'USA', N'94043-1351', 1.98),
+    (330, 18, '2024/12/28', N'627 Broadway', N'New York', N'NY', N'USA', N'10012-2612', 1.98),
+    (331, 20, '2024/12/29', N'541 Del Medio Avenue', N'Mountain View', N'CA', N'USA', N'94040-111', 3.96),
+    (332, 24, '2024/12/30', N'162 E Superior Street', N'Chicago', N'IL', N'USA', N'60611', 5.94),
+    (333, 30, '2025/1/2', N'230 Elgin Street', N'Ottawa', N'ON', N'Canada', N'K2P 1L7', 8.91),
+    (334, 39, '2025/1/7', N'4, Rue Milton', N'Paris', NULL, N'France', N'75009', 13.86),
+    (335, 53, '2025/1/15', N'113 Lupus St', N'London', NULL, N'United Kingdom', N'SW1V 3EN', 0.99),
+    (336, 54, '2025/1/28', N'110 Raeburn Pl', N'Edinburgh ', NULL, N'United Kingdom', N'EH4 1HH', 1.98),
+    (337, 56, '2025/1/28', N'307 Macacha Güemes', N'Buenos Aires', NULL, N'Argentina', N'1106', 1.98),
+    (338, 58, '2025/1/29', N'12,Community Centre', N'Delhi', NULL, N'India', N'110017', 3.96),
+    (339, 3, '2025/1/30', N'1498 rue Bélanger', N'Montréal', N'QC', N'Canada', N'H2G 1A7', 5.94),
+    (340, 9, '2025/2/2', N'Sønder Boulevard 51', N'Copenhagen', NULL, N'Denmark', N'1720', 8.91),
+    (341, 18, '2025/2/7', N'627 Broadway', N'New York', N'NY', N'USA', N'10012-2612', 13.86),
+    (342, 32, '2025/2/15', N'696 Osborne Street', N'Winnipeg', N'MB', N'Canada', N'R3L 2B9', 0.99),
+    (343, 33, '2025/2/28', N'5112 48 Street', N'Yellowknife', N'NT', N'Canada', N'X1A 1N6', 1.98),
+    (344, 35, '2025/2/28', N'Rua dos Campeões Europeus de Viena, 4350', N'Porto', NULL, N'Portugal', NULL, 1.98),
+    (345, 37, '2025/3/1', N'Berger Straße 10', N'Frankfurt', NULL, N'Germany', N'60316', 3.96),
+    (346, 41, '2025/3/2', N'11, Place Bellecour', N'Lyon', NULL, N'France', N'69002', 5.94),
+    (347, 47, '2025/3/5', N'Via Degli Scipioni, 43', N'Rome', N'RM', N'Italy', N'00192', 8.91),
+    (348, 56, '2025/3/10', N'307 Macacha Güemes', N'Buenos Aires', NULL, N'Argentina', N'1106', 13.86),
+    (349, 11, '2025/3/18', N'Av. Paulista, 2022', N'São Paulo', N'SP', N'Brazil', N'01310-200', 0.99),
+    (350, 12, '2025/3/31', N'Praça Pio X, 119', N'Rio de Janeiro', N'RJ', N'Brazil', N'20040-020', 1.98),
+    (351, 14, '2025/3/31', N'8210 111 ST NW', N'Edmonton', N'AB', N'Canada', N'T6G 2C7', 1.98),
+    (352, 16, '2025/4/1', N'1600 Amphitheatre Parkway', N'Mountain View', N'CA', N'USA', N'94043-1351', 3.96),
+    (353, 20, '2025/4/2', N'541 Del Medio Avenue', N'Mountain View', N'CA', N'USA', N'94040-111', 5.94),
+    (354, 26, '2025/4/5', N'2211 W Berry Street', N'Fort Worth', N'TX', N'USA', N'76110', 8.91),
+    (355, 35, '2025/4/10', N'Rua dos Campeões Europeus de Viena, 4350', N'Porto', NULL, N'Portugal', NULL, 13.86),
+    (356, 49, '2025/4/18', N'Ordynacka 10', N'Warsaw', NULL, N'Poland', N'00-358', 0.99),
+    (357, 50, '2025/5/1', N'C/ San Bernardo 85', N'Madrid', NULL, N'Spain', N'28015', 1.98),
+    (358, 52, '2025/5/1', N'202 Hoxton Street', N'London', NULL, N'United Kingdom', N'N1 5LH', 1.98),
+    (359, 54, '2025/5/2', N'110 Raeburn Pl', N'Edinburgh ', NULL, N'United Kingdom', N'EH4 1HH', 3.96),
+    (360, 58, '2025/5/3', N'12,Community Centre', N'Delhi', NULL, N'India', N'110017', 5.94),
+    (361, 5, '2025/5/6', N'Klanova 9/506', N'Prague', NULL, N'Czech Republic', N'14700', 8.91),
+    (362, 14, '2025/5/11', N'8210 111 ST NW', N'Edmonton', N'AB', N'Canada', N'T6G 2C7', 13.86),
+    (363, 28, '2025/5/19', N'302 S 700 E', N'Salt Lake City', N'UT', N'USA', N'84102', 0.99),
+    (364, 29, '2025/6/1', N'796 Dundas Street West', N'Toronto', N'ON', N'Canada', N'M6J 1V1', 1.98),
+    (365, 31, '2025/6/1', N'194A Chain Lake Drive', N'Halifax', N'NS', N'Canada', N'B3S 1C5', 1.98),
+    (366, 33, '2025/6/2', N'5112 48 Street', N'Yellowknife', N'NT', N'Canada', N'X1A 1N6', 3.96),
+    (367, 37, '2025/6/3', N'Berger Straße 10', N'Frankfurt', NULL, N'Germany', N'60316', 5.94),
+    (368, 43, '2025/6/6', N'68, Rue Jouvence', N'Dijon', NULL, N'France', N'21000', 8.91),
+    (369, 52, '2025/6/11', N'202 Hoxton Street', N'London', NULL, N'United Kingdom', N'N1 5LH', 13.86),
+    (370, 7, '2025/6/19', N'Rotenturmstraße 4, 1010 Innere Stadt', N'Vienne', NULL, N'Austria', N'1010', 0.99),
+    (371, 8, '2025/7/2', N'Grétrystraat 63', N'Brussels', NULL, N'Belgium', N'1000', 1.98),
+    (372, 10, '2025/7/2', N'Rua Dr. Falcão Filho, 155', N'São Paulo', N'SP', N'Brazil', N'01007-010', 1.98),
+    (373, 12, '2025/7/3', N'Praça Pio X, 119', N'Rio de Janeiro', N'RJ', N'Brazil', N'20040-020', 3.96),
+    (374, 16, '2025/7/4', N'1600 Amphitheatre Parkway', N'Mountain View', N'CA', N'USA', N'94043-1351', 5.94),
+    (375, 22, '2025/7/7', N'120 S Orange Ave', N'Orlando', N'FL', N'USA', N'32801', 8.91),
+    (376, 31, '2025/7/12', N'194A Chain Lake Drive', N'Halifax', N'NS', N'Canada', N'B3S 1C5', 13.86),
+    (377, 45, '2025/7/20', N'Erzsébet krt. 58.', N'Budapest', NULL, N'Hungary', N'H-1073', 0.99),
+    (378, 46, '2025/8/2', N'3 Chatham Street', N'Dublin', N'Dublin', N'Ireland', NULL, 1.98),
+    (379, 48, '2025/8/2', N'Lijnbaansgracht 120bg', N'Amsterdam', N'VV', N'Netherlands', N'1016', 1.98),
+    (380, 50, '2025/8/3', N'C/ San Bernardo 85', N'Madrid', NULL, N'Spain', N'28015', 3.96),
+    (381, 54, '2025/8/4', N'110 Raeburn Pl', N'Edinburgh ', NULL, N'United Kingdom', N'EH4 1HH', 5.94),
+    (382, 1, '2025/8/7', N'Av. Brigadeiro Faria Lima, 2170', N'São José dos Campos', N'SP', N'Brazil', N'12227-000', 8.91),
+    (383, 10, '2025/8/12', N'Rua Dr. Falcão Filho, 155', N'São Paulo', N'SP', N'Brazil', N'01007-010', 13.86),
+    (384, 24, '2025/8/20', N'162 E Superior Street', N'Chicago', N'IL', N'USA', N'60611', 0.99),
+    (385, 25, '2025/9/2', N'319 N. Frances Street', N'Madison', N'WI', N'USA', N'53703', 1.98),
+    (386, 27, '2025/9/2', N'1033 N Park Ave', N'Tucson', N'AZ', N'USA', N'85719', 1.98),
+    (387, 29, '2025/9/3', N'796 Dundas Street West', N'Toronto', N'ON', N'Canada', N'M6J 1V1', 3.96),
+    (388, 33, '2025/9/4', N'5112 48 Street', N'Yellowknife', N'NT', N'Canada', N'X1A 1N6', 5.94),
+    (389, 39, '2025/9/7', N'4, Rue Milton', N'Paris', NULL, N'France', N'75009', 8.91),
+    (390, 48, '2025/9/12', N'Lijnbaansgracht 120bg', N'Amsterdam', N'VV', N'Netherlands', N'1016', 13.86),
+    (391, 3, '2025/9/20', N'1498 rue Bélanger', N'Montréal', N'QC', N'Canada', N'H2G 1A7', 0.99),
+    (392, 4, '2025/10/3', N'Ullevålsveien 14', N'Oslo', NULL, N'Norway', N'0171', 1.98),
+    (393, 6, '2025/10/3', N'Rilská 3174/6', N'Prague', NULL, N'Czech Republic', N'14300', 1.98),
+    (394, 8, '2025/10/4', N'Grétrystraat 63', N'Brussels', NULL, N'Belgium', N'1000', 3.96),
+    (395, 12, '2025/10/5', N'Praça Pio X, 119', N'Rio de Janeiro', N'RJ', N'Brazil', N'20040-020', 5.94),
+    (396, 18, '2025/10/8', N'627 Broadway', N'New York', N'NY', N'USA', N'10012-2612', 8.91),
+    (397, 27, '2025/10/13', N'1033 N Park Ave', N'Tucson', N'AZ', N'USA', N'85719', 13.86),
+    (398, 41, '2025/10/21', N'11, Place Bellecour', N'Lyon', NULL, N'France', N'69002', 0.99),
+    (399, 42, '2025/11/3', N'9, Place Louis Barthou', N'Bordeaux', NULL, N'France', N'33000', 1.98),
+    (400, 44, '2025/11/3', N'Porthaninkatu 9', N'Helsinki', NULL, N'Finland', N'00530', 1.98),
+    (401, 46, '2025/11/4', N'3 Chatham Street', N'Dublin', N'Dublin', N'Ireland', NULL, 3.96),
+    (402, 50, '2025/11/5', N'C/ San Bernardo 85', N'Madrid', NULL, N'Spain', N'28015', 5.94),
+    (403, 56, '2025/11/8', N'307 Macacha Güemes', N'Buenos Aires', NULL, N'Argentina', N'1106', 8.91),
+    (404, 6, '2025/11/13', N'Rilská 3174/6', N'Prague', NULL, N'Czech Republic', N'14300', 25.86),
+    (405, 20, '2025/11/21', N'541 Del Medio Avenue', N'Mountain View', N'CA', N'USA', N'94040-111', 0.99),
+    (406, 21, '2025/12/4', N'801 W 4th Street', N'Reno', N'NV', N'USA', N'89503', 1.98),
+    (407, 23, '2025/12/4', N'69 Salem Street', N'Boston', N'MA', N'USA', N'2113', 1.98),
+    (408, 25, '2025/12/5', N'319 N. Frances Street', N'Madison', N'WI', N'USA', N'53703', 3.96),
+    (409, 29, '2025/12/6', N'796 Dundas Street West', N'Toronto', N'ON', N'Canada', N'M6J 1V1', 5.94),
+    (410, 35, '2025/12/9', N'Rua dos Campeões Europeus de Viena, 4350', N'Porto', NULL, N'Portugal', NULL, 8.91),
+    (411, 44, '2025/12/14', N'Porthaninkatu 9', N'Helsinki', NULL, N'Finland', N'00530', 13.86),
+    (412, 58, '2025/12/22', N'12,Community Centre', N'Delhi', NULL, N'India', N'110017', 1.99);
 
-INSERT INTO "InvoiceLine" ("InvoiceLineId", "InvoiceId", "TrackId", "UnitPrice", "Quantity") VALUES
+INSERT INTO `InvoiceLine` (`InvoiceLineId`, `InvoiceId`, `TrackId`, `UnitPrice`, `Quantity`) VALUES
     (1, 1, 2, 0.99, 1),
     (2, 1, 4, 0.99, 1),
     (3, 2, 6, 0.99, 1),
@@ -5863,7 +5877,7 @@ INSERT INTO "InvoiceLine" ("InvoiceLineId", "InvoiceId", "TrackId", "UnitPrice",
     (999, 185, 2561, 0.99, 1),
     (1000, 185, 2565, 0.99, 1);
 
-INSERT INTO "InvoiceLine" ("InvoiceLineId", "InvoiceId", "TrackId", "UnitPrice", "Quantity") VALUES
+INSERT INTO `InvoiceLine` (`InvoiceLineId`, `InvoiceId`, `TrackId`, `UnitPrice`, `Quantity`) VALUES
     (1001, 186, 2571, 0.99, 1),
     (1002, 186, 2577, 0.99, 1),
     (1003, 186, 2583, 0.99, 1),
@@ -6865,7 +6879,7 @@ INSERT INTO "InvoiceLine" ("InvoiceLineId", "InvoiceId", "TrackId", "UnitPrice",
     (1999, 369, 1663, 0.99, 1),
     (2000, 369, 1672, 0.99, 1);
 
-INSERT INTO "InvoiceLine" ("InvoiceLineId", "InvoiceId", "TrackId", "UnitPrice", "Quantity") VALUES
+INSERT INTO `InvoiceLine` (`InvoiceLineId`, `InvoiceId`, `TrackId`, `UnitPrice`, `Quantity`) VALUES
     (2001, 369, 1681, 0.99, 1),
     (2002, 369, 1690, 0.99, 1),
     (2003, 369, 1699, 0.99, 1),
@@ -7107,7 +7121,7 @@ INSERT INTO "InvoiceLine" ("InvoiceLineId", "InvoiceId", "TrackId", "UnitPrice",
     (2239, 411, 3163, 0.99, 1),
     (2240, 412, 3177, 1.99, 1);
 
-INSERT INTO "Playlist" ("PlaylistId", "Name") VALUES
+INSERT INTO `Playlist` (`PlaylistId`, `Name`) VALUES
     (1, N'Music'),
     (2, N'Movies'),
     (3, N'TV Shows'),
@@ -7127,7 +7141,7 @@ INSERT INTO "Playlist" ("PlaylistId", "Name") VALUES
     (17, N'Heavy Metal Classic'),
     (18, N'On-The-Go 1');
 
-INSERT INTO "PlaylistTrack" ("PlaylistId", "TrackId") VALUES
+INSERT INTO `PlaylistTrack` (`PlaylistId`, `TrackId`) VALUES
     (1, 3402),
     (1, 3389),
     (1, 3390),
@@ -8129,7 +8143,7 @@ INSERT INTO "PlaylistTrack" ("PlaylistId", "TrackId") VALUES
     (1, 984),
     (1, 985);
 
-INSERT INTO "PlaylistTrack" ("PlaylistId", "TrackId") VALUES
+INSERT INTO `PlaylistTrack` (`PlaylistId`, `TrackId`) VALUES
     (1, 986),
     (1, 987),
     (1, 988),
@@ -9131,7 +9145,7 @@ INSERT INTO "PlaylistTrack" ("PlaylistId", "TrackId") VALUES
     (1, 687),
     (1, 688);
 
-INSERT INTO "PlaylistTrack" ("PlaylistId", "TrackId") VALUES
+INSERT INTO `PlaylistTrack` (`PlaylistId`, `TrackId`) VALUES
     (1, 689),
     (1, 690),
     (1, 691),
@@ -10133,7 +10147,7 @@ INSERT INTO "PlaylistTrack" ("PlaylistId", "TrackId") VALUES
     (1, 2549),
     (1, 2550);
 
-INSERT INTO "PlaylistTrack" ("PlaylistId", "TrackId") VALUES
+INSERT INTO `PlaylistTrack` (`PlaylistId`, `TrackId`) VALUES
     (1, 2551),
     (1, 2552),
     (1, 2553),
@@ -11135,7 +11149,7 @@ INSERT INTO "PlaylistTrack" ("PlaylistId", "TrackId") VALUES
     (5, 2514),
     (5, 2515);
 
-INSERT INTO "PlaylistTrack" ("PlaylistId", "TrackId") VALUES
+INSERT INTO `PlaylistTrack` (`PlaylistId`, `TrackId`) VALUES
     (5, 2516),
     (5, 2517),
     (5, 3132),
@@ -12137,7 +12151,7 @@ INSERT INTO "PlaylistTrack" ("PlaylistId", "TrackId") VALUES
     (8, 21),
     (8, 22);
 
-INSERT INTO "PlaylistTrack" ("PlaylistId", "TrackId") VALUES
+INSERT INTO `PlaylistTrack` (`PlaylistId`, `TrackId`) VALUES
     (8, 3411),
     (8, 3412),
     (8, 3419),
@@ -13139,7 +13153,7 @@ INSERT INTO "PlaylistTrack" ("PlaylistId", "TrackId") VALUES
     (8, 503),
     (8, 504);
 
-INSERT INTO "PlaylistTrack" ("PlaylistId", "TrackId") VALUES
+INSERT INTO `PlaylistTrack` (`PlaylistId`, `TrackId`) VALUES
     (8, 505),
     (8, 506),
     (8, 507),
@@ -14141,7 +14155,7 @@ INSERT INTO "PlaylistTrack" ("PlaylistId", "TrackId") VALUES
     (8, 1947),
     (8, 1948);
 
-INSERT INTO "PlaylistTrack" ("PlaylistId", "TrackId") VALUES
+INSERT INTO `PlaylistTrack` (`PlaylistId`, `TrackId`) VALUES
     (8, 1949),
     (8, 1950),
     (8, 1951),
@@ -15143,7 +15157,7 @@ INSERT INTO "PlaylistTrack" ("PlaylistId", "TrackId") VALUES
     (8, 3066),
     (8, 3067);
 
-INSERT INTO "PlaylistTrack" ("PlaylistId", "TrackId") VALUES
+INSERT INTO `PlaylistTrack` (`PlaylistId`, `TrackId`) VALUES
     (8, 3068),
     (8, 3069),
     (8, 3070),

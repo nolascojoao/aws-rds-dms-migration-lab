@@ -206,12 +206,12 @@ aws ec2 create-security-group \
 
 #### 3.3. Launch RDS MariaDB Instance
 Create an RDS MariaDB instance which will serve as the destination for the migration.
-Replace `<db-instance-identifier>` with your desired RDS instance identifier.
-Replace `<az_name>` with the same availability zone as your EC2 instance.
-Replace `<sb-group-name>` with the name of your DB subnet group.
-Replace `<sg-id>` with your VPC security group ID.
-Replace `root` with your master username.
-Replace `adminpassword` with your master password.
+  - Replace `<db-instance-identifier>` with your desired RDS instance identifier.
+  - Replace `<az_name>` with the same availability zone as your EC2 instance.
+  - Replace `<sb-group-name>` with the name of your DB subnet group.
+  - Replace `<sg-id>` with your VPC security group ID.
+  - Replace `root` with your master username.
+  - Replace `adminpassword` with your master password.
 ```bash
 aws rds create-db-instance \
   --db-instance-identifier <db-instance-identifier> \

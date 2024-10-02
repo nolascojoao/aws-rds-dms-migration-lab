@@ -195,6 +195,7 @@ sudo yum install mariadb105-server -y
 sudo systemctl start mariadb
 sudo systemctl enable mariadb
 sudo systemctl status mariadb
+sudo mysql_secure_installation
 ```
 
 <div align="center">
@@ -207,6 +208,10 @@ sudo systemctl status mariadb
 
 <div align="center">
   <img src="screenshot/2.6.3.PNG" width=""/>
+</div>
+
+<div align="center">
+  <img src="screenshot/mysql_sec_install.PNG" width=""/>
 </div>
 
 ### 2.7. Create and Populate the Source Database
